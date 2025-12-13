@@ -1,6 +1,6 @@
 # Pond Conspiracy - Product Requirements Document (PRD)
 
-**Version**: 1.0
+**Version**: 0.1
 **Date**: 2025-12-13
 **Status**: Approved - Ready for Technical Design
 **Product Name**: Pond Conspiracy
