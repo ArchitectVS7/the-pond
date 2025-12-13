@@ -1,0 +1,210 @@
+name: thursian-workflow-registry
+version: 2.0.0
+description: Master registry of all Thursian workflows
+
+created_at: 2025-12-13
+updated_at: 2025-12-13
+
+workflows:
+  - id: ideation
+    file: 01-ideation-flow.yaml
+    version: 1.0.0
+    name: "Ideation: Dreamer ↔ Doer Dialectic"
+    description: "Transform raw ideas into exciting, feasible visions through 8-round dialectic conversation"
+    inputs:
+      - type: file
+        name: idea-file
+        path_template: .thursian/projects/{project-name}/ideas/initial-idea.md
+        format: markdown
+    outputs:
+      - type: file
+        name: vision-document
+        path_template: .thursian/projects/{project-name}/visions/vision-v1.md
+        format: markdown
+    agents:
+      - dreamer
+      - doer
+      - synthesizer
+    next_workflow: focus-group
+    status: active
+    estimated_duration: 20-30 minutes
+
+  - id: focus-group
+    file: 02-focus-group-flow.yaml
+    version: 1.0.0
+    name: "Focus Group: Multi-Persona Validation"
+    description: "Validate vision with domain-specific user personas + parallel real-world research"
+    inputs:
+      - type: file
+        name: vision-document
+        path_template: .thursian/projects/{project-name}/visions/vision-v1.md
+        format: markdown
+        handoff_from: ideation
+    outputs:
+      - type: file
+        name: focus-group-report
+        path_template: .thursian/projects/{project-name}/focus-groups/report.md
+        format: markdown
+      - type: file
+        name: conversation-transcript
+        path_template: .thursian/projects/{project-name}/focus-groups/conversations/full-transcript.md
+        format: markdown
+    agents:
+      - facilitator
+      - persona_1
+      - persona_2
+      - persona_3
+      - persona_4
+      - persona_5
+      - researcher
+      - synthesizer
+    next_workflow: engineering-meeting
+    status: active
+    estimated_duration: 30-45 minutes
+
+  - id: engineering-meeting
+    file: 03-engineering-meeting-flow.yaml
+    version: 1.0.0
+    name: "Engineering Meeting: Technical PRD Creation"
+    description: "Transform validated vision into comprehensive PRD with parallel technical research"
+    inputs:
+      - type: file
+        name: focus-group-report
+        path_template: .thursian/projects/{project-name}/focus-groups/report.md
+        format: markdown
+        handoff_from: focus-group
+    outputs:
+      - type: file
+        name: prd-document
+        path_template: .thursian/projects/{project-name}/prds/prd-v1.md
+        format: markdown
+      - type: file
+        name: technical-research-report
+        path_template: .thursian/projects/{project-name}/prds/technical-research.md
+        format: markdown
+    agents:
+      - technical_lead
+      - domain_expert
+      - product_manager
+      - marketing_analyst
+      - ux_lead
+      - technical_researcher
+      - prd_writer
+    next_workflow: stakeholder-review
+    status: active
+    estimated_duration: 45-60 minutes
+
+  - id: stakeholder-review
+    file: 04-stakeholder-review-flow.yaml
+    version: 1.0.0
+    name: "Stakeholder Review: PRD Validation"
+    description: "Validate PRD with original ideation team and focus group participants through 5 feedback rounds per section"
+    inputs:
+      - type: file
+        name: prd-document
+        path_template: .thursian/projects/{project-name}/prds/prd-v1.md
+        format: markdown
+        handoff_from: engineering-meeting
+    outputs:
+      - type: file
+        name: stakeholder-feedback
+        path_template: .thursian/projects/{project-name}/prds/stakeholder-feedback.md
+        format: markdown
+      - type: file
+        name: approved-prd
+        path_template: .thursian/projects/{project-name}/prds/prd-approved.md
+        format: markdown
+    agents:
+      - engineering_manager
+      - dreamer
+      - doer
+      - focus_group_persona_1
+      - focus_group_persona_2
+      - focus_group_persona_3
+      - focus_group_persona_4
+      - focus_group_persona_5
+      - feedback_synthesizer
+    next_workflow: technical-design
+    status: active
+    estimated_duration: 60-90 minutes
+
+  - id: technical-design
+    file: 05-technical-design-flow.yaml
+    version: 1.0.0
+    name: "Technical Design: Architecture & Implementation Plan"
+    description: "Create detailed technical design from approved PRD"
+    inputs:
+      - type: file
+        name: approved-prd
+        path_template: .thursian/projects/{project-name}/prds/prd-approved.md
+        format: markdown
+        handoff_from: stakeholder-review
+    outputs:
+      - type: file
+        name: technical-design-document
+        path_template: .thursian/projects/{project-name}/technical/design-v1.md
+        format: markdown
+    agents:
+      - system_architect
+      - backend_engineer
+      - frontend_engineer
+      - database_architect
+      - security_engineer
+    next_workflow: development
+    status: planned
+    estimated_duration: 60-90 minutes
+
+execution_modes:
+  - id: full-pipeline
+    name: "Complete Ideation → Development Pipeline"
+    description: "Run all workflows sequentially from idea to approved PRD"
+    workflows:
+      - ideation
+      - focus-group
+      - engineering-meeting
+      - stakeholder-review
+      - technical-design
+    mode: sequential
+    estimated_total_duration: 3-5 hours
+
+  - id: ideation-to-prd
+    name: "Ideation → PRD (No Development)"
+    description: "Run workflows through stakeholder-approved PRD"
+    workflows:
+      - ideation
+      - focus-group
+      - engineering-meeting
+      - stakeholder-review
+    mode: sequential
+    estimated_total_duration: 2.5-4 hours
+
+  - id: validation-only
+    name: "Validation Only (Focus Group + Stakeholder Review)"
+    description: "Skip ideation, start with existing vision"
+    workflows:
+      - focus-group
+      - stakeholder-review
+    mode: sequential
+    estimated_total_duration: 1.5-2.5 hours
+
+metadata_standards:
+  project_naming: "lowercase-with-dashes"
+  file_naming: "descriptive-lowercase-with-dashes"
+  version_format: "v{major}.{minor}.{patch}"
+  session_id_format: "{workflow}-{timestamp}"
+  timestamp_format: "ISO-8601"
+
+memory_configuration:
+  backend: agentdb
+  persistence: true
+  session_namespace_template: "thursian/{project-name}/{workflow-id}"
+  memory_retention: 90_days
+
+artifact_conventions:
+  ideas: ".thursian/projects/{project-name}/ideas/"
+  visions: ".thursian/projects/{project-name}/visions/"
+  focus_groups: ".thursian/projects/{project-name}/focus-groups/"
+  prds: ".thursian/projects/{project-name}/prds/"
+  technical: ".thursian/projects/{project-name}/technical/"
+  sessions: ".thursian/projects/{project-name}/sessions/"
+  conversations: "{artifact-path}/conversations/"

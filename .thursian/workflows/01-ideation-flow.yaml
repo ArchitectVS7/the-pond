@@ -1,0 +1,376 @@
+name: thursian-ideation-flow
+description: >
+  Dialectic ideation workflow where Dreamer and Doer converse to transform
+  an initial idea into an exciting, feasible vision statement.
+
+version: 1.0.0
+
+memory:
+  backend: agentdb
+  namespaces:
+    conversations: ideation-conversations
+    visions: ideation-visions
+    ideas: ideation-ideas
+
+input:
+  type: file
+  path_template: .thursian/projects/{project-name}/ideas/initial-idea.md
+  format: markdown
+
+agents:
+
+  - id: dreamer
+    role: visionary
+    persona_file: .thursian/personas/ideation/dreamer.md
+    tools: [memory.read, memory.write]
+    config:
+      thinking_style: expansive
+      focuses_on: [possibilities, user_impact, innovation, edge_cases]
+      asks: "what_if"
+
+  - id: doer
+    role: pragmatist
+    persona_file: .thursian/personas/ideation/doer.md
+    tools: [memory.read, memory.write]
+    config:
+      thinking_style: grounded
+      focuses_on: [feasibility, structure, mvp, technical_reality]
+      asks: "how_can_we"
+
+  - id: synthesizer
+    role: documentarian
+    persona_file: .thursian/personas/ideation/synthesizer.md
+    tools: [memory.read, filesystem.write]
+    output_contract:
+      - type: conversation_transcript
+        format: markdown
+        path_template: .thursian/projects/{project-name}/01-{project-name}-ideation-full.md
+        description: "Complete conversation between Dreamer and Doer"
+      - type: vision_document
+        format: markdown
+        path_template: .thursian/projects/{project-name}/01-{project-name}-vision.md
+        description: "Synthesized vision statement"
+
+workflow:
+
+  entry_state: initialize
+  exit_states: [complete]
+
+  states:
+
+    initialize:
+      agent: synthesizer
+      description: "Load the initial idea and prepare conversation canvas"
+      actions:
+        - type: filesystem.read
+          path_from_input: idea_path
+        - type: memory.write
+          namespace: ideas
+          key_from: idea_id
+        - type: create_conversation_canvas
+      transitions:
+        on_success: round_1_dreamer
+
+    # Conversation Round 1
+    round_1_dreamer:
+      agent: dreamer
+      description: "Dreamer responds to initial idea with expansive 'what if' thinking"
+      actions:
+        - type: memory.read
+          namespace: ideas
+        - type: respond
+          style: expansive_questioning
+        - type: memory.write
+          namespace: conversations
+          key: round_1_dreamer
+      transitions:
+        on_success: round_1_doer
+
+    round_1_doer:
+      agent: doer
+      description: "Doer grounds the vision with practical 'let's build' thinking"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: grounded_structuring
+        - type: memory.write
+          namespace: conversations
+          key: round_1_doer
+      transitions:
+        on_success: round_2_dreamer
+
+    # Conversation Round 2
+    round_2_dreamer:
+      agent: dreamer
+      description: "Dreamer expands on Doer's structure with new possibilities"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: expansive_questioning
+        - type: memory.write
+          namespace: conversations
+          key: round_2_dreamer
+      transitions:
+        on_success: round_2_doer
+
+    round_2_doer:
+      agent: doer
+      description: "Doer validates feasibility and proposes MVP scope"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: grounded_structuring
+        - type: memory.write
+          namespace: conversations
+          key: round_2_doer
+      transitions:
+        on_success: round_3_dreamer
+
+    # Conversation Round 3
+    round_3_dreamer:
+      agent: dreamer
+      description: "Dreamer explores user impact and edge cases"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: expansive_questioning
+        - type: memory.write
+          namespace: conversations
+          key: round_3_dreamer
+      transitions:
+        on_success: round_3_doer
+
+    round_3_doer:
+      agent: doer
+      description: "Doer addresses edge cases with practical solutions"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: grounded_structuring
+        - type: memory.write
+          namespace: conversations
+          key: round_3_doer
+      transitions:
+        on_success: round_4_dreamer
+
+    # Conversation Round 4
+    round_4_dreamer:
+      agent: dreamer
+      description: "Dreamer challenges assumptions and explores alternatives"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: expansive_questioning
+        - type: memory.write
+          namespace: conversations
+          key: round_4_dreamer
+      transitions:
+        on_success: round_4_doer
+
+    round_4_doer:
+      agent: doer
+      description: "Doer evaluates alternatives and proposes technical direction"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: grounded_structuring
+        - type: memory.write
+          namespace: conversations
+          key: round_4_doer
+      transitions:
+        on_success: round_5_dreamer
+
+    # Conversation Round 5
+    round_5_dreamer:
+      agent: dreamer
+      description: "Dreamer envisions the ideal user experience"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: expansive_questioning
+        - type: memory.write
+          namespace: conversations
+          key: round_5_dreamer
+      transitions:
+        on_success: round_5_doer
+
+    round_5_doer:
+      agent: doer
+      description: "Doer maps user experience to implementable features"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: grounded_structuring
+        - type: memory.write
+          namespace: conversations
+          key: round_5_doer
+      transitions:
+        on_success: round_6_dreamer
+
+    # Conversation Round 6
+    round_6_dreamer:
+      agent: dreamer
+      description: "Dreamer explores scaling and future possibilities"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: expansive_questioning
+        - type: memory.write
+          namespace: conversations
+          key: round_6_dreamer
+      transitions:
+        on_success: round_6_doer
+
+    round_6_doer:
+      agent: doer
+      description: "Doer defines phased rollout and realistic timeline"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: grounded_structuring
+        - type: memory.write
+          namespace: conversations
+          key: round_6_doer
+      transitions:
+        on_success: round_7_dreamer
+
+    # Conversation Round 7
+    round_7_dreamer:
+      agent: dreamer
+      description: "Dreamer questions what makes this project truly special"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: expansive_questioning
+        - type: memory.write
+          namespace: conversations
+          key: round_7_dreamer
+      transitions:
+        on_success: round_7_doer
+
+    round_7_doer:
+      agent: doer
+      description: "Doer identifies unique value proposition and differentiation"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: grounded_structuring
+        - type: memory.write
+          namespace: conversations
+          key: round_7_doer
+      transitions:
+        on_success: round_8_dreamer
+
+    # Conversation Round 8 (Final)
+    round_8_dreamer:
+      agent: dreamer
+      description: "Dreamer's final vision refinement and excitement check"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: expansive_questioning
+        - type: memory.write
+          namespace: conversations
+          key: round_8_dreamer
+      transitions:
+        on_success: round_8_doer
+
+    round_8_doer:
+      agent: doer
+      description: "Doer's final feasibility check and ah-ha moment"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+          style: grounded_structuring
+        - type: assess_readiness
+          criteria: [exciting, feasible, clear_scope, actionable]
+        - type: memory.write
+          namespace: conversations
+          key: round_8_doer
+      transitions:
+        on_ready: synthesize_vision
+        on_not_ready: round_9_dreamer
+
+    # Optional Round 9 (if needed)
+    round_9_dreamer:
+      agent: dreamer
+      description: "Bonus round: Address any remaining gaps"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+        - type: memory.write
+          namespace: conversations
+          key: round_9_dreamer
+      transitions:
+        on_success: round_9_doer
+
+    round_9_doer:
+      agent: doer
+      description: "Bonus round: Final convergence"
+      actions:
+        - type: memory.read
+          namespace: conversations
+        - type: respond
+        - type: memory.write
+          namespace: conversations
+          key: round_9_doer
+      transitions:
+        on_success: synthesize_vision
+
+    synthesize_vision:
+      agent: synthesizer
+      description: "Create conversation transcript and vision document"
+      actions:
+        - type: memory.read
+          namespace: conversations
+          scope: all_rounds
+        - type: export_conversation
+          format: full_transcript
+          include: [all_rounds, timestamps, agent_names]
+        - type: filesystem.write
+          path_template: .thursian/projects/{project-name}/01-{project-name}-ideation-full.md
+        - type: synthesize
+          format: vision_document
+        - type: filesystem.write
+          path_template: .thursian/projects/{project-name}/01-{project-name}-vision.md
+        - type: memory.write
+          namespace: visions
+          key_from: idea_id
+      transitions:
+        on_success: ah_ha_moment
+
+    ah_ha_moment:
+      agent: doer
+      description: "Doer declares the ah-ha moment and calls friends"
+      actions:
+        - type: declare
+          message: "Ah-ha! I see it now. This is exciting AND doable. Let me call a group of friends."
+        - type: create_handoff
+          next_phase: focus_group
+          artifact: vision_document
+      transitions:
+        on_success: complete
+
+    complete:
+      description: "Ideation complete, ready for focus group phase"
+      final: true
+      handoff:
+        next_workflow: 02-focus-group-flow.yaml
+        artifact: vision_document
+        status: ready

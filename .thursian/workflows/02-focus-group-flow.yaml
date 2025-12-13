@@ -1,0 +1,807 @@
+name: thursian-focus-group-flow
+description: >
+  Multi-persona focus group simulation with parallel real-world research.
+  The Doer facilitates 5 rounds of discussion with domain-specific user personas,
+  while simultaneously conducting web-based research to ground the simulation in reality.
+
+version: 1.0.0
+
+memory:
+  backend: agentdb
+  namespaces:
+    visions: ideation-visions
+    personas: focus-group-personas
+    discussions: focus-group-discussions
+    research: focus-group-research
+    synthesis: focus-group-synthesis
+
+input:
+  type: file
+  path_template: .thursian/projects/{project-name}/visions/vision-v1.md
+  format: markdown
+  handoff_from: 01-ideation-flow.yaml
+
+agents:
+
+  - id: facilitator
+    role: focus_group_moderator
+    persona_file: .thursian/personas/ideation/doer.md
+    tools: [memory.read, memory.write, web.search]
+    config:
+      style: professional_moderator
+      skills: [active_listening, probing_questions, group_dynamics, synthesis]
+      focuses_on: [user_needs, pain_points, real_feedback, actionable_insights]
+
+  - id: domain_detector
+    role: analyzer
+    persona_file: .thursian/personas/ideation/synthesizer.md
+    tools: [memory.read, memory.write]
+    config:
+      detects: [domain, target_audience, key_features, use_cases]
+      outputs: persona_specifications
+
+  - id: persona_1
+    role: end_user
+    persona_template: dynamic
+    tools: [memory.read, memory.write]
+    config:
+      adapts_to_domain: true
+      authenticity: high
+      background_depth: detailed
+
+  - id: persona_2
+    role: end_user
+    persona_template: dynamic
+    tools: [memory.read, memory.write]
+    config:
+      adapts_to_domain: true
+      authenticity: high
+      background_depth: detailed
+
+  - id: persona_3
+    role: end_user
+    persona_template: dynamic
+    tools: [memory.read, memory.write]
+    config:
+      adapts_to_domain: true
+      authenticity: high
+      background_depth: detailed
+
+  - id: persona_4
+    role: end_user
+    persona_template: dynamic
+    tools: [memory.read, memory.write]
+    config:
+      adapts_to_domain: true
+      authenticity: high
+      background_depth: detailed
+
+  - id: persona_5
+    role: domain_expert
+    persona_template: dynamic
+    tools: [memory.read, memory.write]
+    config:
+      adapts_to_domain: true
+      authenticity: high
+      background_depth: detailed
+      expertise_level: professional
+
+  - id: researcher
+    role: web_researcher
+    persona_file: .thursian/personas/focus-group/researcher.md
+    tools: [web.search, web.scrape, memory.read, memory.write]
+    config:
+      sources: [reddit, reviews, user_scores, forums, social_media, demographics]
+      analysis_depth: comprehensive
+      runs_parallel: true
+
+  - id: synthesizer
+    role: documentarian
+    persona_file: .thursian/personas/ideation/synthesizer.md
+    tools: [memory.read, filesystem.write]
+    output_contract:
+      - type: conversation_transcript
+        format: markdown
+        path_template: .thursian/projects/{project-name}/02-{project-name}-focus-group-full.md
+        description: "Complete focus group discussion with all 5 rounds"
+      - type: focus_group_report
+        format: markdown
+        path_template: .thursian/projects/{project-name}/02-{project-name}-focus-group-report.md
+        description: "Synthesized focus group findings and recommendations"
+
+# Domain-specific persona templates
+persona_templates:
+
+  gaming:
+    personas:
+      - type: board_gamer
+        demographics: [age_25_40, strategy_focused, social_gamer]
+        preferences: [tabletop, complexity, player_interaction]
+        pain_points: [setup_time, rule_complexity, storage]
+
+      - type: card_gamer
+        demographics: [age_18_35, competitive, deck_builder]
+        preferences: [strategy, collection, meta_analysis]
+        pain_points: [power_creep, cost, competitive_balance]
+
+      - type: mobile_gamer
+        demographics: [age_20_45, casual_to_midcore, time_constrained]
+        preferences: [accessibility, quick_sessions, progression]
+        pain_points: [monetization, battery_drain, pay_to_win]
+
+      - type: pc_gamer
+        demographics: [age_15_40, hardcore, performance_focused]
+        preferences: [graphics, competitive, modding]
+        pain_points: [optimization, cheating, toxic_communities]
+
+      - type: game_designer
+        demographics: [age_25_50, professional, analytical]
+        expertise: [mechanics, balance, player_psychology, monetization]
+        perspectives: [design_patterns, market_fit, technical_feasibility]
+
+  productivity:
+    personas:
+      - type: individual_contributor
+        demographics: [age_25_40, knowledge_worker, efficiency_focused]
+        preferences: [simplicity, speed, integration]
+        pain_points: [context_switching, tool_overload, learning_curve]
+
+      - type: team_lead
+        demographics: [age_30_50, manager, coordination_focused]
+        preferences: [visibility, collaboration, reporting]
+        pain_points: [adoption, training, cost_justification]
+
+      - type: freelancer
+        demographics: [age_22_45, independent, multi_client]
+        preferences: [flexibility, affordability, mobile_access]
+        pain_points: [subscription_costs, vendor_lock_in, complexity]
+
+      - type: enterprise_user
+        demographics: [age_30_55, corporate, compliance_aware]
+        preferences: [security, scalability, support]
+        pain_points: [integration, data_migration, change_management]
+
+      - type: productivity_consultant
+        demographics: [age_28_55, professional, methodology_expert]
+        expertise: [workflows, tool_ecosystems, behavioral_change]
+        perspectives: [adoption_patterns, roi, best_practices]
+
+  automation:
+    personas:
+      - type: power_user
+        demographics: [age_25_45, tech_savvy, script_writer]
+        preferences: [control, customization, api_access]
+        pain_points: [limitations, breaking_changes, documentation]
+
+      - type: business_analyst
+        demographics: [age_28_50, process_focused, non_technical]
+        preferences: [visual_interface, templates, reliability]
+        pain_points: [technical_barriers, maintenance, error_handling]
+
+      - type: developer
+        demographics: [age_22_40, programmer, integration_focused]
+        preferences: [code_first, version_control, ci_cd]
+        pain_points: [vendor_lock_in, debugging, testing]
+
+      - type: operations_manager
+        demographics: [age_35_55, business_focused, roi_driven]
+        preferences: [metrics, monitoring, cost_savings]
+        pain_points: [implementation_time, training, scale]
+
+      - type: automation_architect
+        demographics: [age_30_50, professional, enterprise_scale]
+        expertise: [rpa, workflow_design, governance]
+        perspectives: [architecture_patterns, scalability, maintenance]
+
+  developer_tools:
+    personas:
+      - type: junior_developer
+        demographics: [age_20_28, learning_focused, bootcamp_or_cs_degree]
+        preferences: [clear_documentation, examples, community_support]
+        pain_points: [steep_learning_curve, overwhelming_options, imposter_syndrome]
+
+      - type: senior_developer
+        demographics: [age_28_45, efficiency_focused, opinionated]
+        preferences: [power_features, customization, keyboard_shortcuts]
+        pain_points: [bloat, slow_performance, breaking_changes]
+
+      - type: devops_engineer
+        demographics: [age_25_40, infrastructure_focused, automation_minded]
+        preferences: [ci_cd_integration, scripting, observability]
+        pain_points: [configuration_complexity, vendor_lock_in, cost]
+
+      - type: tech_lead
+        demographics: [age_30_50, team_focused, standards_driven]
+        preferences: [consistency, team_collaboration, code_quality]
+        pain_points: [onboarding_time, tool_sprawl, license_management]
+
+      - type: developer_advocate
+        demographics: [age_25_45, professional, community_focused]
+        expertise: [dx, adoption_patterns, ecosystem_health]
+        perspectives: [developer_experience, market_positioning, community_building]
+
+workflow:
+
+  entry_state: initialize
+  exit_states: [complete]
+
+  states:
+
+    initialize:
+      agent: domain_detector
+      description: "Analyze vision document to detect domain and generate persona specifications"
+      actions:
+        - type: filesystem.read
+          path_from_input: vision_path
+        - type: analyze_domain
+          extract: [primary_domain, target_users, key_features, use_cases]
+        - type: select_persona_template
+          based_on: primary_domain
+        - type: generate_personas
+          count: 5
+          specifications: domain_specific
+        - type: memory.write
+          namespace: personas
+          key: persona_specifications
+        - type: memory.write
+          namespace: visions
+          key_from: idea_id
+      transitions:
+        on_success: initialize_research
+
+    initialize_research:
+      agent: researcher
+      description: "Launch parallel web research to gather real-world data"
+      parallel: true
+      actions:
+        - type: web.search
+          queries:
+            - "{domain} user reviews 2024"
+            - "{domain} user pain points reddit"
+            - "{domain} user demographics statistics"
+            - "{domain} user feedback forums"
+            - "{primary_feature} user complaints"
+        - type: scrape_reviews
+          sources: [reddit, steam, app_store, google_play, trustpilot, g2]
+          filter_by: relevance
+        - type: analyze_demographics
+          sources: [statista, pew_research, industry_reports]
+        - type: memory.write
+          namespace: research
+          key: initial_research
+      transitions:
+        on_success: round_1_discussion
+      continues_during: [round_1_discussion, round_2_discussion, round_3_discussion, round_4_discussion, round_5_discussion]
+
+    round_1_discussion:
+      description: "Round 1: Initial discussion of the idea"
+      parallel_agents: [facilitator, persona_1, persona_2, persona_3, persona_4, persona_5]
+
+      facilitator:
+        actions:
+          - type: introduce_session
+            message: "Thank you all for joining. We're exploring a new {domain} concept. Let me share the vision..."
+          - type: present_vision
+            source: vision_document
+          - type: ask_question
+            question: "What's your initial reaction to this idea? What excites you or concerns you?"
+          - type: moderate_discussion
+            ensure: [all_voices_heard, authentic_responses, depth]
+          - type: memory.write
+            namespace: discussions
+            key: round_1_facilitation
+
+      persona_1:
+        actions:
+          - type: listen
+          - type: respond
+            style: authentic_to_persona
+            focus: [first_impressions, gut_reaction, immediate_value]
+          - type: memory.write
+            namespace: discussions
+            key: round_1_persona_1
+
+      persona_2:
+        actions:
+          - type: listen
+          - type: respond
+            style: authentic_to_persona
+            build_on: [persona_1_response]
+          - type: memory.write
+            namespace: discussions
+            key: round_1_persona_2
+
+      persona_3:
+        actions:
+          - type: listen
+          - type: respond
+            style: authentic_to_persona
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_1_persona_3
+
+      persona_4:
+        actions:
+          - type: listen
+          - type: respond
+            style: authentic_to_persona
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_1_persona_4
+
+      persona_5:
+        actions:
+          - type: listen
+          - type: respond
+            style: authentic_to_persona_expert
+            add: [professional_insights, design_perspective]
+          - type: memory.write
+            namespace: discussions
+            key: round_1_persona_5
+
+      transitions:
+        on_complete: research_alignment_1
+
+    research_alignment_1:
+      agent: researcher
+      description: "Align round 1 feedback with real-world research data"
+      actions:
+        - type: memory.read
+          namespace: discussions
+          scope: round_1
+        - type: memory.read
+          namespace: research
+          scope: initial_research
+        - type: compare_and_align
+          persona_feedback: round_1_discussions
+          real_data: research_findings
+          identify: [confirmations, contradictions, gaps]
+        - type: memory.write
+          namespace: research
+          key: round_1_alignment
+      transitions:
+        on_success: round_2_discussion
+
+    round_2_discussion:
+      description: "Round 2: Expanding wider - exploring broader implications"
+      parallel_agents: [facilitator, persona_1, persona_2, persona_3, persona_4, persona_5]
+
+      facilitator:
+        actions:
+          - type: review_round_1
+            highlight: [key_themes, interesting_points]
+          - type: ask_question
+            question: "Let's think bigger. How does this fit into your broader {domain} life? What other tools or experiences would this interact with?"
+          - type: probe_deeper
+            areas: [ecosystem_fit, competitive_landscape, adjacent_use_cases]
+          - type: moderate_discussion
+          - type: memory.write
+            namespace: discussions
+            key: round_2_facilitation
+
+      persona_1:
+        actions:
+          - type: reflect_on_round_1
+          - type: respond
+            style: expansive
+            focus: [broader_context, ecosystem, comparisons]
+          - type: memory.write
+            namespace: discussions
+            key: round_2_persona_1
+
+      persona_2:
+        actions:
+          - type: reflect_on_round_1
+          - type: respond
+            style: expansive
+            build_on: [persona_1_response]
+          - type: memory.write
+            namespace: discussions
+            key: round_2_persona_2
+
+      persona_3:
+        actions:
+          - type: reflect_on_round_1
+          - type: respond
+            style: expansive
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_2_persona_3
+
+      persona_4:
+        actions:
+          - type: reflect_on_round_1
+          - type: respond
+            style: expansive
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_2_persona_4
+
+      persona_5:
+        actions:
+          - type: reflect_on_round_1
+          - type: respond
+            style: expert_expansive
+            add: [market_analysis, trend_insights]
+          - type: memory.write
+            namespace: discussions
+            key: round_2_persona_5
+
+      transitions:
+        on_complete: research_alignment_2
+
+    research_alignment_2:
+      agent: researcher
+      description: "Deep dive research: ecosystem analysis and competitive landscape"
+      actions:
+        - type: memory.read
+          namespace: discussions
+          scope: round_2
+        - type: web.search
+          queries:
+            - "{domain} ecosystem tools 2024"
+            - "{domain} competitive analysis"
+            - "{primary_feature} alternatives comparison"
+            - "{domain} integration patterns"
+        - type: analyze_ecosystem
+          identify: [key_players, integration_points, gaps]
+        - type: compare_and_align
+        - type: memory.write
+          namespace: research
+          key: round_2_alignment
+      transitions:
+        on_success: round_3_discussion
+
+    round_3_discussion:
+      description: "Round 3: Diving deeper - specific features and use cases"
+      parallel_agents: [facilitator, persona_1, persona_2, persona_3, persona_4, persona_5]
+
+      facilitator:
+        actions:
+          - type: review_rounds
+            highlight: [ecosystem_insights, interesting_connections]
+          - type: ask_question
+            question: "Let's get specific. Walk me through how you'd actually use this. What features are must-haves versus nice-to-haves?"
+          - type: probe_deeper
+            areas: [actual_workflows, feature_priorities, deal_breakers]
+          - type: moderate_discussion
+          - type: memory.write
+            namespace: discussions
+            key: round_3_facilitation
+
+      persona_1:
+        actions:
+          - type: respond
+            style: detailed_scenario
+            focus: [real_workflow, specific_features, frequency_of_use]
+          - type: memory.write
+            namespace: discussions
+            key: round_3_persona_1
+
+      persona_2:
+        actions:
+          - type: respond
+            style: detailed_scenario
+            build_on: [persona_1_response]
+            contrast: [different_use_case]
+          - type: memory.write
+            namespace: discussions
+            key: round_3_persona_2
+
+      persona_3:
+        actions:
+          - type: respond
+            style: detailed_scenario
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_3_persona_3
+
+      persona_4:
+        actions:
+          - type: respond
+            style: detailed_scenario
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_3_persona_4
+
+      persona_5:
+        actions:
+          - type: respond
+            style: expert_detailed
+            add: [design_implications, implementation_complexity]
+          - type: memory.write
+            namespace: discussions
+            key: round_3_persona_5
+
+      transitions:
+        on_complete: research_alignment_3
+
+    research_alignment_3:
+      agent: researcher
+      description: "Feature analysis: what users actually want vs what they say"
+      actions:
+        - type: memory.read
+          namespace: discussions
+          scope: round_3
+        - type: web.search
+          queries:
+            - "{domain} most requested features reddit"
+            - "{domain} feature usage statistics"
+            - "{primary_feature} user adoption data"
+            - "{domain} workflow analysis"
+        - type: analyze_feature_demand
+          sources: [feature_requests, usage_data, forum_discussions]
+        - type: compare_and_align
+          identify: [stated_vs_revealed_preferences, usage_patterns, priority_mismatches]
+        - type: memory.write
+          namespace: research
+          key: round_3_alignment
+      transitions:
+        on_success: round_4_discussion
+
+    round_4_discussion:
+      description: "Round 4: Pain points - what could go wrong"
+      parallel_agents: [facilitator, persona_1, persona_2, persona_3, persona_4, persona_5]
+
+      facilitator:
+        actions:
+          - type: review_rounds
+            highlight: [use_cases, feature_priorities]
+          - type: ask_question
+            question: "Now let's talk about concerns. What could frustrate you about this? What pain points from other {domain} tools should we absolutely avoid?"
+          - type: probe_deeper
+            areas: [friction_points, failure_modes, adoption_barriers]
+          - type: moderate_discussion
+          - type: memory.write
+            namespace: discussions
+            key: round_4_facilitation
+
+      persona_1:
+        actions:
+          - type: respond
+            style: critical_honest
+            focus: [potential_frustrations, deal_breakers, past_disappointments]
+          - type: memory.write
+            namespace: discussions
+            key: round_4_persona_1
+
+      persona_2:
+        actions:
+          - type: respond
+            style: critical_honest
+            build_on: [persona_1_response]
+            add: [additional_concerns]
+          - type: memory.write
+            namespace: discussions
+            key: round_4_persona_2
+
+      persona_3:
+        actions:
+          - type: respond
+            style: critical_honest
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_4_persona_3
+
+      persona_4:
+        actions:
+          - type: respond
+            style: critical_honest
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_4_persona_4
+
+      persona_5:
+        actions:
+          - type: respond
+            style: expert_critical
+            add: [design_antipatterns, common_failures, industry_lessons]
+          - type: memory.write
+            namespace: discussions
+            key: round_4_persona_5
+
+      transitions:
+        on_complete: research_alignment_4
+
+    research_alignment_4:
+      agent: researcher
+      description: "Pain point validation: real user complaints and failure patterns"
+      actions:
+        - type: memory.read
+          namespace: discussions
+          scope: round_4
+        - type: web.search
+          queries:
+            - "{domain} user complaints common"
+            - "{domain} tool failures why users quit"
+            - "{primary_feature} negative reviews"
+            - "{domain} churn analysis"
+        - type: analyze_pain_points
+          sources: [negative_reviews, complaint_forums, churn_studies]
+        - type: compare_and_align
+          identify: [validated_concerns, surprising_gaps, underestimated_issues]
+        - type: memory.write
+          namespace: research
+          key: round_4_alignment
+      transitions:
+        on_success: round_5_discussion
+
+    round_5_discussion:
+      description: "Round 5: Final thoughts - overall assessment"
+      parallel_agents: [facilitator, persona_1, persona_2, persona_3, persona_4, persona_5]
+
+      facilitator:
+        actions:
+          - type: review_all_rounds
+            summarize: [key_insights, recurring_themes, critical_concerns]
+          - type: ask_question
+            question: "We've covered a lot. Bottom line: would you use this? What would make it a must-have for you versus just nice-to-have?"
+          - type: probe_deeper
+            areas: [purchase_intent, recommendation_likelihood, final_priorities]
+          - type: moderate_discussion
+          - type: memory.write
+            namespace: discussions
+            key: round_5_facilitation
+
+      persona_1:
+        actions:
+          - type: reflect_on_all_rounds
+          - type: respond
+            style: conclusive_honest
+            include: [overall_assessment, would_use, conditions_for_adoption]
+          - type: memory.write
+            namespace: discussions
+            key: round_5_persona_1
+
+      persona_2:
+        actions:
+          - type: reflect_on_all_rounds
+          - type: respond
+            style: conclusive_honest
+            build_on: [persona_1_response]
+          - type: memory.write
+            namespace: discussions
+            key: round_5_persona_2
+
+      persona_3:
+        actions:
+          - type: reflect_on_all_rounds
+          - type: respond
+            style: conclusive_honest
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_5_persona_3
+
+      persona_4:
+        actions:
+          - type: reflect_on_all_rounds
+          - type: respond
+            style: conclusive_honest
+            build_on: [previous_responses]
+          - type: memory.write
+            namespace: discussions
+            key: round_5_persona_4
+
+      persona_5:
+        actions:
+          - type: reflect_on_all_rounds
+          - type: respond
+            style: expert_conclusive
+            add: [market_viability, design_recommendations, success_criteria]
+          - type: memory.write
+            namespace: discussions
+            key: round_5_persona_5
+
+      transitions:
+        on_complete: research_alignment_5
+
+    research_alignment_5:
+      agent: researcher
+      description: "Final research synthesis: market validation and success indicators"
+      actions:
+        - type: memory.read
+          namespace: discussions
+          scope: round_5
+        - type: memory.read
+          namespace: research
+          scope: all_rounds
+        - type: web.search
+          queries:
+            - "{domain} market size 2024"
+            - "{domain} successful products common traits"
+            - "{primary_feature} adoption rates"
+            - "{domain} user willingness to pay"
+        - type: synthesize_research
+          all_sources: true
+          create: comprehensive_research_report
+        - type: compare_and_align
+          identify: [market_opportunity, validation_level, risk_factors]
+        - type: memory.write
+          namespace: research
+          key: final_synthesis
+      transitions:
+        on_success: synthesize_focus_group
+
+    synthesize_focus_group:
+      agent: synthesizer
+      description: "Create conversation transcript and focus group report"
+      actions:
+        - type: memory.read
+          namespace: discussions
+          scope: all_rounds
+        - type: memory.read
+          namespace: research
+          scope: all_alignments
+        - type: memory.read
+          namespace: personas
+          scope: all_specifications
+        - type: export_conversation
+          format: full_transcript
+          include: [all_rounds, persona_names, research_alignment_notes, timestamps]
+        - type: filesystem.write
+          path_template: .thursian/projects/{project-name}/02-{project-name}-focus-group-full.md
+        - type: synthesize
+          format: focus_group_report
+          sections:
+            - executive_summary
+            - persona_profiles
+            - round_by_round_insights
+            - research_validation
+            - key_findings:
+                - what_users_love
+                - what_users_fear
+                - must_have_features
+                - deal_breakers
+                - market_validation
+            - recommendations:
+                - high_priority_changes
+                - feature_priorities
+                - risk_mitigation
+                - go_to_market_insights
+            - appendix:
+                - full_transcripts
+                - research_sources
+                - demographic_data
+        - type: filesystem.write
+          path_template: .thursian/projects/{project-name}/02-{project-name}-focus-group-report.md
+        - type: memory.write
+          namespace: synthesis
+          key_from: idea_id
+      transitions:
+        on_success: facilitator_summary
+
+    facilitator_summary:
+      agent: facilitator
+      description: "Doer provides final summary and next steps"
+      actions:
+        - type: declare
+          message: "Great session everyone! We've gathered valuable insights. The data confirms some of our assumptions and reveals some critical gaps. Let me summarize what we learned..."
+        - type: create_handoff
+          next_phase: engineering_review
+          artifacts: [focus_group_report, research_synthesis]
+          recommendations: prioritized
+      transitions:
+        on_success: complete
+
+    complete:
+      description: "Focus group complete, ready for engineering review phase"
+      final: true
+      handoff:
+        next_workflow: 03-engineering-meeting-flow.yaml
+        artifacts:
+          - focus_group_report
+          - research_synthesis
+        status: ready
+        context:
+          user_validated: true
+          research_backed: true
+          ready_for_technical_review: true

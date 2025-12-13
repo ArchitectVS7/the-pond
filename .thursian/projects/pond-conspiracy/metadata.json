@@ -1,0 +1,123 @@
+{
+  "project_name": "pond-conspiracy",
+  "display_name": "The Pond Conspiracy",
+  "created_at": "2025-12-13T00:00:00Z",
+  "updated_at": "2025-12-13T00:00:00Z",
+  "created_by": "user",
+
+  "status": "in-progress",
+  "current_workflow": "stakeholder-review",
+  "completed_workflows": ["ideation", "focus-group", "engineering-meeting"],
+  "next_workflow": "technical-design",
+
+  "workflows": {
+    "ideation": {
+      "status": "completed",
+      "started_at": "2025-12-13T01:00:00Z",
+      "completed_at": "2025-12-13T01:30:00Z",
+      "session_id": "ideation-2025-12-13-0100",
+      "duration_minutes": 30,
+      "artifacts": [
+        ".thursian/projects/pond-conspiracy/visions/vision-v1.md"
+      ],
+      "agents_used": ["dreamer", "doer", "synthesizer"]
+    },
+    "focus-group": {
+      "status": "completed",
+      "started_at": "2025-12-13T01:30:00Z",
+      "completed_at": "2025-12-13T02:15:00Z",
+      "session_id": "focus-group-2025-12-13-0130",
+      "duration_minutes": 45,
+      "artifacts": [
+        ".thursian/projects/pond-conspiracy/focus-groups/report.md",
+        ".thursian/projects/pond-conspiracy/focus-groups/conversations/full-transcript.md"
+      ],
+      "agents_used": ["facilitator", "persona_1", "persona_2", "persona_3", "persona_4", "persona_5", "researcher", "synthesizer"]
+    },
+    "engineering-meeting": {
+      "status": "completed",
+      "started_at": "2025-12-13T02:15:00Z",
+      "completed_at": "2025-12-13T03:30:00Z",
+      "session_id": "engineering-meeting-2025-12-13-0215",
+      "duration_minutes": 75,
+      "artifacts": [
+        ".thursian/projects/pond-conspiracy/prds/prd-v1.md"
+      ],
+      "agents_used": ["technical_lead", "domain_expert", "product_manager", "marketing_analyst", "ux_lead", "technical_researcher", "prd_writer"]
+    },
+    "stakeholder-review": {
+      "status": "in-progress",
+      "started_at": "2025-12-13T03:30:00Z",
+      "completed_at": null,
+      "session_id": "stakeholder-review-2025-12-13-0330",
+      "duration_minutes": null,
+      "artifacts": [
+        ".thursian/projects/pond-conspiracy/prds/stakeholder-feedback.md"
+      ],
+      "agents_used": ["engineering_manager", "dreamer", "doer", "focus_group_persona_1", "focus_group_persona_2", "focus_group_persona_3", "focus_group_persona_4", "focus_group_persona_5", "feedback_synthesizer"]
+    },
+    "technical-design": {
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "session_id": null,
+      "duration_minutes": null,
+      "artifacts": [],
+      "agents_used": []
+    }
+  },
+
+  "tags": ["gaming", "board-game", "conspiracy-theory", "social-deduction"],
+  "domain": "gaming",
+  "category": "product",
+  "target_audience": [
+    "board-game-enthusiasts",
+    "social-deduction-fans",
+    "conspiracy-theory-interested",
+    "party-game-players"
+  ],
+
+  "artifacts": {
+    "idea": ".thursian/projects/pond-conspiracy/ideas/initial-idea.md",
+    "vision": ".thursian/projects/pond-conspiracy/visions/vision-v1.md",
+    "focus_group_report": ".thursian/projects/pond-conspiracy/focus-groups/report.md",
+    "focus_group_transcript": ".thursian/projects/pond-conspiracy/focus-groups/conversations/full-transcript.md",
+    "prd": ".thursian/projects/pond-conspiracy/prds/prd-v1.md",
+    "technical_research": null,
+    "stakeholder_feedback": ".thursian/projects/pond-conspiracy/prds/stakeholder-feedback.md",
+    "approved_prd": null,
+    "technical_design": null
+  },
+
+  "memory": {
+    "backend": "agentdb",
+    "session_namespace": "thursian/pond-conspiracy",
+    "persistence": true,
+    "namespaces": {
+      "conversations": "pond-conspiracy-conversations",
+      "visions": "pond-conspiracy-visions",
+      "ideas": "pond-conspiracy-ideas",
+      "personas": "pond-conspiracy-personas",
+      "discussions": "pond-conspiracy-discussions",
+      "research": "pond-conspiracy-research",
+      "prds": "pond-conspiracy-prds",
+      "feedback": "pond-conspiracy-feedback"
+    }
+  },
+
+  "metrics": {
+    "total_duration_minutes": 150,
+    "total_agents_spawned": 24,
+    "total_rounds_completed": 35,
+    "total_artifacts_generated": 5,
+    "conversation_word_count": 45000
+  },
+
+  "notes": [
+    "Initial ideation completed with strong vision document",
+    "Focus group validated user interest and identified key features",
+    "Engineering meeting produced comprehensive PRD",
+    "Currently in stakeholder review phase",
+    "Domain detected as gaming/board-game/social-deduction"
+  ]
+}
