@@ -100,7 +100,7 @@ Read [For Vibe Coders](00-prologue/for-vibe-coders.md) - this manual is built fo
 | 11-alpha-beta | **Complete** | 6/6 |
 | 12-human-steps | **Complete** | 7/7 |
 | 13-launch-checklist | **Complete** | 4/4 |
-| appendices | Draft | 0/5 |
+| appendices | **Complete** | 5/5 |
 
 ---
 
