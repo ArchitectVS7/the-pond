@@ -190,6 +190,22 @@ void fragment() {
 - All sprites/icons created (or placeholders)
 
 ---
+---
+
+## Epic Completion Protocol
+
+### On Epic Completion
+1. Update `.thursian/projects/pond-conspiracy/planning/epics-and-stories.md`:
+   - Mark Epic header with ✅ COMPLETE
+   - Add **Status**: ✅ **COMPLETE** (date) line
+   - Mark all stories with ✅ prefix
+   - Update Story Index table with ✅ status
+   - Update Progress Summary counts
+2. Commit changes with message: "Complete EPIC-XXX: [Epic Name]"
+3. Proceed to next Epic in dependency order
+
+---
+
 
 **Plan Status**: Ready for automated execution
 **Created**: 2025-12-13

@@ -6,6 +6,111 @@ This manual documents all tunable settings, configuration options, and developer
 
 ---
 
+## EPIC-003: Conspiracy Board UI
+
+### Blocked Stories (Human-Dependent)
+
+The following stories were skipped during automated development as they require human involvement:
+
+- **BOARD-001**: Figma prototype creation → SKIP (design tool access required)
+- **BOARD-002**: Recruit 10 testers → SKIP (human recruitment task)
+- **BOARD-003**: Achieve 8/10 satisfaction → SKIP (depends on BOARD-001, BOARD-002)
+
+**Note**: Wireframe implementation in-engine used instead of Figma. User testing to be conducted post-MVP.
+
+---
+
+### BOARD-005: Data Log Card Component
+
+**Files**:
+- `conspiracy_board/scenes/DataLogCard.tscn` - Card scene
+- `conspiracy_board/scripts/data_log_card.gd` - Card logic
+- `conspiracy_board/resources/DataLogResource.gd` - Card data resource
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `card_width` | int | 200 | Card width in pixels |
+| `card_height` | int | 150 | Card height in pixels |
+| `preview_max_chars` | int | 80 | Characters before truncation in preview |
+| `undiscovered_alpha` | float | 0.3 | Opacity when undiscovered (0.0-1.0) |
+| `discovered_color` | Color | Paper beige | Background color for discovered cards |
+| `undiscovered_color` | Color | Dark gray | Background color for undiscovered cards |
+| `title_color` | Color | Near black | Title text color |
+| `preview_color` | Color | Dark gray | Preview text color |
+
+**Tuning Notes**:
+- `card_width` and `card_height` determine the visual size of cards on the conspiracy board
+- Default 200x150 provides good readability while fitting multiple cards on screen
+- `preview_max_chars` controls text truncation - increase for more detail, decrease for cleaner look
+- `undiscovered_alpha = 0.3` creates clear visual distinction between discovered/undiscovered state
+- Discovered cards use warm paper beige (0.92, 0.88, 0.78) for noir aesthetic
+- Undiscovered cards are semi-transparent dark gray to indicate locked content
+
+**Card States**:
+- **Discovered**: Full opacity, paper texture, shows real title and preview
+- **Undiscovered**: 30% opacity, faded appearance, shows "???" and "[LOCKED]"
+
+**DataLogResource Structure**:
+```gdscript
+id: String              # Unique identifier
+title: String           # Display title
+summary: String         # Short preview (TL;DR)
+full_text: String       # Complete document content
+discovered: bool        # Discovery state
+category: String        # For grouping/filtering
+connections: Array[String]  # IDs of connected documents
+```
+
+---
+
+### BOARD-006: Drag-Drop Interaction System
+
+**File**: `conspiracy_board/scripts/data_log_card.gd`
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `drag_threshold` | float | 5.0 | Pixels of movement before drag activates |
+| `drag_opacity` | float | 0.8 | Opacity while dragging (0.0-1.0) |
+
+**Tuning Notes**:
+- `drag_threshold = 5.0` prevents accidental drags on clicks
+  - Lower (2-3px) for more sensitive drag detection
+  - Higher (8-10px) for less accidental drags on touchscreens
+- `drag_opacity = 0.8` provides clear visual feedback during drag
+  - Higher (0.9-1.0) for subtle feedback
+  - Lower (0.5-0.7) for dramatic "lifting" effect
+
+**Drag-Drop Behavior**:
+1. Mouse down on card stores position and offset
+2. Movement beyond `drag_threshold` activates drag mode
+3. While dragging:
+   - Card z-index set to 100 (brings to top)
+   - Opacity changes to `drag_opacity`
+   - Position follows mouse cursor with offset
+4. On mouse release:
+   - Z-index restored to original
+   - Opacity restored based on discovered state
+   - `drag_ended` signal emitted for snap detection (BOARD-007)
+
+**Signals Emitted**:
+- `card_clicked(card)` - Single click without drag
+- `drag_started(card)` - Drag initiated (past threshold)
+- `drag_ended(card)` - Mouse released after drag
+- `discovery_changed(card, is_discovered)` - Discovery state changed
+
+**Click vs Drag Distinction**:
+- Movement under threshold + release = Click (opens document viewer)
+- Movement over threshold = Drag (position on board)
+- This prevents frustrating "I tried to click but it dragged" scenarios
+
+**Integration with BOARD-007**:
+- Parent board listens to `drag_ended` signal
+- Checks distance to all pin positions
+- Snaps to nearest pin if within 50px threshold
+- See BOARD-007 for snap detection logic
+
+---
+
 ## COMBAT-001: Player Movement
 
 **File**: `combat/scripts/player_controller.gd`
@@ -1517,6 +1622,7 @@ These mutations will modify the settings above:
 | 2025-12-13 | COMBAT-014 | Added object pooling documentation |
 | 2025-12-13 | BULLET-003 | Added basic bullet patterns documentation |
 | 2025-12-13 | BULLET-006 | Added bullet pooling optimization documentation |
+| 2025-12-13 | EPIC-003 | Noted blocked stories for manual completion |
 
 ---
 

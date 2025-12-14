@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://board_string_connection"]
+
+[ext_resource type="Script" path="res://conspiracy_board/scripts/string_renderer.gd" id="1_string_renderer"]
+
+[node name="StringConnection" type="Line2D"]
+script = ExtResource("1_string_renderer")
+string_width = 2.0
+string_color = Color(1, 0, 0, 1)
+bezier_curve_amount = 50.0
+string_segments = 20
