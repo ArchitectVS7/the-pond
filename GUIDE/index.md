@@ -93,10 +93,10 @@ Read [For Vibe Coders](00-prologue/for-vibe-coders.md) - this manual is built fo
 | 04-conspiracy-board | **Complete** | 5/5 |
 | 05-mutations | **Complete** | 5/5 |
 | 06-boss-encounters | **Complete** | 6/6 |
-| 07-meta-progression | Draft | 0/4 |
-| 08-platform-integration | Draft | 0/5 |
-| 09-accessibility | Draft | 0/4 |
-| 10-content-creation | Draft | 0/3 |
+| 07-meta-progression | **Complete** | 4/4 |
+| 08-platform-integration | **Complete** | 5/5 |
+| 09-accessibility | **Complete** | 4/4 |
+| 10-content-creation | **Complete** | 3/3 |
 | 11-alpha-beta | Draft | 0/6 |
 | 12-human-steps | **Complete** | 7/7 |
 | 13-launch-checklist | Draft | 0/4 |
