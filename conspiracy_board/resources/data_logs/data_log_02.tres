@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DataLogResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://conspiracy_board/resources/DataLogResource.gd" id="1_data_log"]
+
+[resource]
+script = ExtResource("1_data_log")
+id = "data_log_02"
+title = "Lab Report: Mercury Contamination (340% Above Limits)"
+summary = "Independent lab found mercury levels 340% above EPA limits in wetland sediment. Methylmercury bioaccumulating in tadpoles at neurotoxic levels. Company marked report 'INCONCLUSIVE' despite clear data."
+full_text = "**ENVIRONMENTAL TESTING LABORATORY**\n**Certificate of Analysis**\n\n**Client:** Riverside Power & Electric\n**Sample ID:** WL-2024-0847-SED\n**Collection Date:** June 3, 2024\n**Analyst:** Dr. Sarah Okonkwo, Ph.D. (Environmental Chemistry)\n\n**Test Parameters & Results:**\n\n| Parameter | Detected Level | EPA Safe Limit | Status |\n|-----------|---------------|----------------|--------|\n| Total Mercury (Hg) | 0.68 mg/kg | 0.2 mg/kg | EXCEEDS |\n| Methylmercury (MeHg) | 0.41 mg/kg | 0.1 mg/kg | EXCEEDS |\n\n**CRITICAL FINDING:** Total mercury concentration is 340% of federal safety threshold. Methylmercury fraction represents 60% of total mercury, indicating active microbial conversion in anaerobic sediment layers.\n\n**Bioaccumulation Analysis:**\nTadpole Tissue Mercury: 1.2 mg/kg (wet weight)\nBioaccumulation Factor: 1.76x (sediment to tissue)\nTrophic Magnification Potential: HIGH\n\n**Interpretation:** Mercury is actively bioaccumulating in lower trophic levels [3]. Adult amphibians feeding on contaminated insects are projected to reach tissue concentrations of 3-5 mg/kg—well above thresholds associated with reproductive failure and neurological impairment [4].\n\n**Source Attribution:**\nIsotopic analysis indicates mercury signature consistent with coal combustion emissions [1]. Airborne deposition from nearby power plant is the likely primary source. Mercury flux estimated at 15-20 μg/m²/year [2].\n\n**Recommended Actions:**\n1. Immediate sampling of fish tissue to assess human consumption risk\n2. Post signage warning against wildlife harvesting\n3. Investigate source emissions and atmospheric deposition pathways\n4. Consider sediment remediation or wetland closure if concentrations continue to rise\n\n[STAMPED IN RED INK:]\nCOMPANY REVIEW: INCONCLUSIVE\nLegal Review Required - Do Not Distribute\nM. Patel, Environmental Compliance Officer, 6/20/2024"
+discovered = false
+category = "Scientific Reports"
+connections = ["data_log_01", "data_log_07"]
