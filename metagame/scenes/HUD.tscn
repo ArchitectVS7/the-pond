@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8dx2m4k5n9pq"]
+
+[ext_resource type="PackedScene" uid="uid://bqr8vx3f5y7mh" path="res://metagame/scenes/PollutionMeter.tscn" id="1_pollution_meter"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="PollutionMeter" parent="." instance=ExtResource("1_pollution_meter")]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 170.0
+offset_bottom = 40.0

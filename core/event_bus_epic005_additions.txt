@@ -1,0 +1,34 @@
+# Add these signals after line 58 (after pollution_changed signal) in event_bus.gd:
+
+## Emitted when pollution value is updated (Epic-005)
+## @param value: Current pollution value (0.0-100.0)
+signal pollution_updated(value: float)
+
+## Emitted when mutations are applied to player (Epic-006 stub)
+## @param mutations: Array of mutation dictionaries
+signal mutations_applied(mutations: Array)
+
+## Emitted when a mutation is removed (Epic-006 stub)
+## @param mutation: Dictionary containing mutation details
+signal mutation_removed(mutation: Dictionary)
+
+## Emitted when mutation pool is refreshed (Epic-006 stub)
+## @param available_mutations: Array of available mutation choices
+signal mutation_pool_updated(available_mutations: Array)
+
+# Replace the _ready() function at line 132 with:
+
+func _ready() -> void:
+	print("[EventBus] Initialized - Epic-005 & Epic-006 integration ready")
+
+# Add these helper methods at the end of the file:
+
+# =============================================================================
+# EPIC-005: Helper methods for pollution system
+# =============================================================================
+
+## Emit pollution update (new format)
+func emit_pollution_updated(value: float) -> void:
+	pollution_updated.emit(value)
+	# Also emit old signal for backward compatibility
+	pollution_changed.emit(int(value))
