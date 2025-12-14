@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://boss_arena_001"]
+
+[ext_resource type="Script" path="res://combat/scripts/boss_arena.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+size = Vector2(100, 100)
+
+[node name="BossArena" type="Node2D"]
+script = ExtResource("1")
+arena_width = 800
+arena_height = 600
+spawn_delay = 1.0
+lock_fade_duration = 0.5
+
+[node name="TriggerArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerArea"]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="ArenaWalls" type="Node2D" parent="."]
+
+[node name="TopWall" type="StaticBody2D" parent="ArenaWalls"]
+position = Vector2(0, -300)
+
+[node name="ColorRect" type="ColorRect" parent="ArenaWalls/TopWall"]
+offset_left = -400.0
+offset_right = 400.0
+offset_bottom = 10.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="BottomWall" type="StaticBody2D" parent="ArenaWalls"]
+position = Vector2(0, 300)
+
+[node name="ColorRect" type="ColorRect" parent="ArenaWalls/BottomWall"]
+offset_left = -400.0
+offset_right = 400.0
+offset_bottom = 10.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="LeftWall" type="StaticBody2D" parent="ArenaWalls"]
+position = Vector2(-400, 0)
+
+[node name="ColorRect" type="ColorRect" parent="ArenaWalls/LeftWall"]
+offset_right = 10.0
+offset_top = -300.0
+offset_bottom = 300.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="RightWall" type="StaticBody2D" parent="ArenaWalls"]
+position = Vector2(400, 0)
+
+[node name="ColorRect" type="ColorRect" parent="ArenaWalls/RightWall"]
+offset_right = 10.0
+offset_top = -300.0
+offset_bottom = 300.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="BossSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, -150)

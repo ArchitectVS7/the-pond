@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://boss_ceo_001"]
+
+[ext_resource type="Script" path="res://combat/scripts/boss_ceo.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ceo"]
+size = Vector2(96, 96)
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 1.0
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ceo"]
+_data = {
+"idle": SubResource("Animation_idle")
+}
+
+[node name="BossCEO" type="CharacterBody2D" groups=["bosses", "enemies"]]
+script = ExtResource("1")
+ceo_total_hp = 150
+ceo_p1_wall_speed = 120.0
+ceo_p1_wall_count = 5
+ceo_p1_wall_spacing = 100.0
+ceo_p2_homing_strength = 2.0
+ceo_p2_homing_duration = 3.0
+ceo_p2_cooldown = 2.5
+ceo_p3_spawn_interval = 0.5
+ceo_p3_chaos_count = 8
+ceo_p3_cooldown = 1.2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="PlaceholderArt" type="ColorRect" parent="Sprite2D"]
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+color = Color(0.9, 0.1, 0.1, 1)
+
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_left = -25.0
+offset_top = -10.0
+offset_right = 25.0
+offset_bottom = 10.0
+text = "THE CEO"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ceo")
+
+[node name="BuHSpawner" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ceo")
+}
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -50.0
+offset_top = -65.0
+offset_right = 50.0
+offset_bottom = -60.0
+max_value = 150.0
+value = 150.0
+show_percentage = false

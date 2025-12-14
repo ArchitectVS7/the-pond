@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://boss_lobbyist_001"]
+
+[ext_resource type="Script" path="res://combat/scripts/boss_lobbyist.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lobbyist"]
+size = Vector2(64, 64)
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 1.0
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lobbyist"]
+_data = {
+"idle": SubResource("Animation_idle")
+}
+
+[node name="BossLobbyist" type="CharacterBody2D" groups=["bosses", "enemies"]]
+script = ExtResource("1")
+total_hp = 100
+p1_bullet_speed = 150.0
+p1_cooldown = 2.0
+p2_bullet_speed = 200.0
+p2_cooldown = 1.5
+p2_radial_count = 8
+p3_bullet_speed = 250.0
+p3_cooldown = 1.0
+p3_spiral_speed = 90.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="PlaceholderArt" type="ColorRect" parent="Sprite2D"]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0.2, 0.6, 0.9, 1)
+
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_left = -30.0
+offset_top = -10.0
+offset_right = 30.0
+offset_bottom = 10.0
+text = "LOBBYIST"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lobbyist")
+
+[node name="BuHSpawner" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lobbyist")
+}
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -45.0
+max_value = 100.0
+value = 100.0
+show_percentage = false

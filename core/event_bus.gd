@@ -82,6 +82,10 @@ signal ability_used(ability_data: Dictionary)
 ## @param evidence_id: ID of the evidence/data log
 signal evidence_unlocked(evidence_id: String)
 
+## Emitted when evidence is dropped by a boss or enemy
+## @param evidence_id: ID of the evidence that was dropped
+signal evidence_dropped(evidence_id: String)
+
 ## Emitted when a connection is made between two documents
 ## @param from_id: Source document ID
 ## @param to_id: Target document ID

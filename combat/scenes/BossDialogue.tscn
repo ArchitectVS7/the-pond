@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://boss_dialogue_001"]
+
+[ext_resource type="Script" path="res://combat/scripts/boss_dialogue.gd" id="1"]
+
+[node name="BossDialogue" type="CanvasLayer"]
+script = ExtResource("1")
+display_time = 3.0
+font_size = 16
+fade_duration = 0.3
+
+[node name="DialoguePanel" type="Panel" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 50.0
+offset_right = 300.0
+offset_bottom = 150.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="DialoguePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -40.0
+offset_right = 280.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Boss dialogue appears here..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
