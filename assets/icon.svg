@@ -1,0 +1,16 @@
+<svg height="128" width="128" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="2" width="124" height="124" rx="14" fill="#363d52" stroke="#212532" stroke-width="4"/>
+  <g transform="translate(32, 32)">
+    <!-- Frog body -->
+    <ellipse cx="32" cy="40" rx="28" ry="24" fill="#4a7c59"/>
+    <!-- Eyes -->
+    <circle cx="18" cy="24" r="12" fill="#6b9b4a"/>
+    <circle cx="46" cy="24" r="12" fill="#6b9b4a"/>
+    <circle cx="18" cy="22" r="6" fill="white"/>
+    <circle cx="46" cy="22" r="6" fill="white"/>
+    <circle cx="19" cy="21" r="3" fill="black"/>
+    <circle cx="47" cy="21" r="3" fill="black"/>
+    <!-- Mouth -->
+    <path d="M 16 48 Q 32 56 48 48" stroke="#2d4a32" stroke-width="3" fill="none"/>
+  </g>
+</svg>

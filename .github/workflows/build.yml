@@ -1,0 +1,80 @@
+name: Build Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v0.1.0)'
+        required: true
+        default: 'v0.1.0'
+
+jobs:
+  export-windows:
+    runs-on: ubuntu-latest
+    name: Export Windows Build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: 4.2.1
+          use-dotnet: false
+          include-templates: true
+
+      - name: Import project
+        run: godot --headless --import
+
+      - name: Create builds directory
+        run: mkdir -p builds/windows
+
+      - name: Export Windows Build
+        run: |
+          godot --headless --export-release "Windows Desktop" builds/windows/PondConspiracy.exe
+
+      - name: Upload Windows Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: pond-conspiracy-windows-${{ github.ref_name || inputs.version }}
+          path: builds/windows/
+          retention-days: 30
+
+  export-linux:
+    runs-on: ubuntu-latest
+    name: Export Linux Build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: 4.2.1
+          use-dotnet: false
+          include-templates: true
+
+      - name: Import project
+        run: godot --headless --import
+
+      - name: Create builds directory
+        run: mkdir -p builds/linux
+
+      - name: Export Linux Build
+        run: |
+          godot --headless --export-release "Linux/X11" builds/linux/PondConspiracy.x86_64
+
+      - name: Upload Linux Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: pond-conspiracy-linux-${{ github.ref_name || inputs.version }}
+          path: builds/linux/
+          retention-days: 30

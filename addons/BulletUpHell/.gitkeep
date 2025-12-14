@@ -1,0 +1,12 @@
+# BulletUpHell Plugin
+
+Fork from: https://github.com/Dark-Peace/BulletUpHell
+
+## Installation (Day 1 Task - BULLET-001)
+
+1. Fork the repository to your GitHub account
+2. Clone to this directory
+3. Integrate with project
+
+This is a risk mitigation per PRD CI-3.3:
+"Fork repository on Day 1, maintain internal copy. If upstream development stops, we own the code."

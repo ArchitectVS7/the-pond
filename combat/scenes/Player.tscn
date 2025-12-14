@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4player001"]
+
+[ext_resource type="Script" path="res://combat/scripts/player_controller.gd" id="1_player"]
+[ext_resource type="Script" path="res://combat/scripts/tongue_attack.gd" id="2_tongue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(28, 28)
+
+[sub_resource type="Gradient" id="Gradient_aim"]
+colors = PackedColorArray(1, 0.3, 0.3, 0.9, 1, 0.3, 0.3, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tongue"]
+radius = 12.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.290196, 0.486275, 0.34902, 1)
+scale = Vector2(2, 2)
+
+[node name="AimPivot" type="Node2D" parent="."]
+
+[node name="AimIndicator" type="Polygon2D" parent="AimPivot"]
+color = Color(1, 0.4, 0.4, 0.8)
+polygon = PackedVector2Array(20, 0, 8, -6, 8, 6)
+
+[node name="AimLine" type="Line2D" parent="AimPivot"]
+points = PackedVector2Array(0, 0, 20, 0)
+width = 2.0
+default_color = Color(1, 0.4, 0.4, 0.5)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="TongueAttack" type="Node2D" parent="."]
+script = ExtResource("2_tongue")
+
+[node name="TongueLine" type="Line2D" parent="TongueAttack"]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 4.0
+default_color = Color(1, 0.4, 0.6, 1)
+
+[node name="HitArea" type="Area2D" parent="TongueAttack"]
+collision_layer = 4
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TongueAttack/HitArea"]
+shape = SubResource("CircleShape2D_tongue")

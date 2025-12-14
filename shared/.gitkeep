@@ -1,0 +1,5 @@
+# Shared utilities (cross-cutting concerns)
+# - input_manager.gd
+# - audio_manager.gd
+# - screen_shake.gd
+# - accessibility_manager.gd

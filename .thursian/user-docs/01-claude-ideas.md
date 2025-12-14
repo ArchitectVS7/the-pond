@@ -147,21 +147,6 @@ Let me give this a proper name and structure:
 
 ---
 
-### **Phase 6: Technical Architecture**
-
-| Stage | Name | Agents | Method |
-|-------|------|--------|--------|
-| **6** | **Architecture Planning** | Technical Architects | Spawn N substages as needed |
-
-**Deliverables**:
-- Platform/deployment decisions
-- Module structure
-- Communication patterns
-- Authentication strategy
-- Data architecture
-- Tech stack selection
-
-**Output**: Architecture Decision Records (ADRs)
 
 ---
 
@@ -206,7 +191,8 @@ Let me give this a proper name and structure:
 
 | Stage | Name | Agents | Method |
 |-------|------|--------|--------|
-| **9** | **Build Prototype** | Developer Agents | Implement → Test → Self-Play |
+| **9A** | **Build Prototype** | Developer and Review Agents | Implement → Review → Test |
+| **9B** | **Test Prototype** | Test Agents | Self-Play |
 
 **Automated Testing**:
 - Playwright/Puppeteer runs application
