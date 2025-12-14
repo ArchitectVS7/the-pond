@@ -86,8 +86,8 @@ Read [For Vibe Coders](00-prologue/for-vibe-coders.md) - this manual is built fo
 
 | Chapter | Status | Files |
 |---------|--------|-------|
-| 00-prologue | Draft | 0/3 |
-| 01-foundations | Draft | 0/3 |
+| 00-prologue | **Complete** | 3/3 |
+| 01-foundations | **Complete** | 3/3 |
 | 02-combat-system | **Complete** | 7/7 |
 | 03-bulletuphell | **Complete** | 4/4 |
 | 04-conspiracy-board | **Complete** | 5/5 |
@@ -97,9 +97,9 @@ Read [For Vibe Coders](00-prologue/for-vibe-coders.md) - this manual is built fo
 | 08-platform-integration | **Complete** | 5/5 |
 | 09-accessibility | **Complete** | 4/4 |
 | 10-content-creation | **Complete** | 3/3 |
-| 11-alpha-beta | Draft | 0/6 |
+| 11-alpha-beta | **Complete** | 6/6 |
 | 12-human-steps | **Complete** | 7/7 |
-| 13-launch-checklist | Draft | 0/4 |
+| 13-launch-checklist | **Complete** | 4/4 |
 | appendices | Draft | 0/5 |
 
 ---
