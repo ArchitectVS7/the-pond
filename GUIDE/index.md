@@ -88,11 +88,11 @@ Read [For Vibe Coders](00-prologue/for-vibe-coders.md) - this manual is built fo
 |---------|--------|-------|
 | 00-prologue | Draft | 0/3 |
 | 01-foundations | Draft | 0/3 |
-| 02-combat-system | Draft | 0/7 |
-| 03-bulletuphell | Draft | 0/4 |
-| 04-conspiracy-board | Draft | 0/5 |
-| 05-mutations | Draft | 0/5 |
-| 06-boss-encounters | Draft | 0/6 |
+| 02-combat-system | **Complete** | 7/7 |
+| 03-bulletuphell | **Complete** | 4/4 |
+| 04-conspiracy-board | **Complete** | 5/5 |
+| 05-mutations | **Complete** | 5/5 |
+| 06-boss-encounters | **Complete** | 6/6 |
 | 07-meta-progression | Draft | 0/4 |
 | 08-platform-integration | Draft | 0/5 |
 | 09-accessibility | Draft | 0/4 |
@@ -135,4 +135,4 @@ See the full [Style Guide](style-guide.md) for details.
 
 ---
 
-*Last updated: 2025-12-13*
+*Last updated: 2025-12-14*
