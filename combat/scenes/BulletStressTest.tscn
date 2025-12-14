@@ -1,0 +1,105 @@
+[gd_scene load_steps=3 format=3 uid="uid://bullet_stress_test_001"]
+
+[ext_resource type="Script" path="res://combat/scripts/bullet_stress_test.gd" id="1"]
+[ext_resource type="Script" path="res://combat/scripts/performance_monitor.gd" id="2"]
+
+[node name="BulletStressTest" type="Node2D"]
+script = ExtResource("1")
+max_bullets = 500
+bullet_lifetime = 5.0
+spawn_rate = 100.0
+spawn_burst_size = 50
+enable_monitoring = true
+
+[node name="BulletContainer" type="Node2D" parent="."]
+
+[node name="PerformanceMonitor" type="Node" parent="."]
+script = ExtResource("2")
+fps_target = 60
+warning_threshold = 16.7
+enable_logging = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.01
+autostart = false
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="StatsPanel" type="PanelContainer" parent="UI"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 350.0
+offset_bottom = 200.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/StatsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/StatsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/StatsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "BULLET STRESS TEST"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/StatsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BulletCount" type="Label" parent="UI/StatsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Bullets: 0 / 500"
+
+[node name="FPS" type="Label" parent="UI/StatsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "FPS: 60.0"
+
+[node name="FrameTime" type="Label" parent="UI/StatsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Frame Time: 16.67ms"
+
+[node name="FramesDropped" type="Label" parent="UI/StatsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Frames Dropped: 0"
+
+[node name="Memory" type="Label" parent="UI/StatsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Memory: 0.0 MB"
+
+[node name="TestStatus" type="Label" parent="UI/StatsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Status: Ready"
+
+[node name="ControlPanel" type="PanelContainer" parent="UI"]
+offset_left = 10.0
+offset_top = 210.0
+offset_right = 350.0
+offset_bottom = 290.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ControlPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ControlPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StartButton" type="Button" parent="UI/ControlPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start Test"
+
+[node name="StopButton" type="Button" parent="UI/ControlPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stop Test"
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)

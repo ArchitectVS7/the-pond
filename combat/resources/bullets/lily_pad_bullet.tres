@@ -1,0 +1,54 @@
+[gd_resource type="PackedDataContainer" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/BulletUpHell/BulletProps.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+__ID__ = "lily_pad_bullet"
+damage = 2.0
+speed = 50.0
+scale = 1.2
+angle = 0
+groups = []
+death_after_time = 15.0
+death_outside_box = Rect2(0, 0, 0, 0)
+death_from_collision = true
+anim_idle_texture = "0"
+anim_spawn_texture = ""
+anim_waiting_texture = ""
+anim_delete_texture = ""
+anim_idle_collision = "0"
+anim_spawn_collision = ""
+anim_waiting_collision = ""
+anim_delete_collision = ""
+anim_idle_sfx = -1
+anim_spawn_sfx = -1
+anim_waiting_sfx = -1
+anim_delete_sfx = -1
+a_direction_equation = ""
+a_angular_equation = ""
+a_curve_movement = 0
+a_speed_multi_iterations = 1
+spec_bounces = 0
+spec_no_collision = false
+spec_rotating_speed = 1.0
+spec_trail_length = 0.0
+spec_trail_width = 0.0
+spec_trail_modulate = Color(0.3, 0.8, 0.3, 1)
+trigger_container = ""
+trigger_wait_for_shot = true
+homing_type = 0
+homing_target = NodePath("")
+homing_special_target = ""
+homing_group = ""
+homing_select_in_group = 0
+homing_surface = []
+homing_list = []
+homing_list_ordered = true
+homing_when_list_ends = 0
+homing_position = Vector2(0, 0)
+homing_steer = 0
+homing_time_start = 0
+homing_duration = 999
+homing_mouse = false
+scale_multi_iterations = 0
