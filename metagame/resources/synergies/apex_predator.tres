@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SynergyResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/SynergyResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "apex_predator"
+synergy_name = "Apex Predator"
+description = "Perfect hunting machine - attack speed massively increased"
+required_mutations = ["quick_tongue", "long_reach", "strong_legs"]
+bonus_effects = {
+    "attack_cooldown": -0.25
+}

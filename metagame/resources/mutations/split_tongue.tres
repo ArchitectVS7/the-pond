@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "split_tongue"
+mutation_name = "Split Tongue"
+description = "Your forked tongue strikes multiple enemies at once.\nAttacks hit in a 30-degree cone"
+type = 0
+pollution_cost = 0
+has_special_ability = true
+ability_id = "split_tongue"
+synergy_hint = "Part of Apex Predator combo"

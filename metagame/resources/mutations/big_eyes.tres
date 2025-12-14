@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "big_eyes"
+mutation_name = "Big Eyes"
+description = "Enhanced vision helps you spot weak points.\n+10% Critical Hit Chance"
+type = 0
+pollution_cost = 0
+crit_chance_modifier = 0.1
+synergy_hint = "Combine with damage mutations"

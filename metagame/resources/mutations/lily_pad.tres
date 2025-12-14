@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "lily_pad"
+mutation_name = "Lily Pad"
+description = "Summon a temporary platform beneath you.\n5 second duration, 8 second cooldown"
+type = 0
+pollution_cost = 0
+has_special_ability = true
+ability_id = "lily_pad"
+ability_cooldown = 8.0
+synergy_hint = "Part of Swamp King combo"

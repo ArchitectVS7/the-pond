@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "double_jump"
+mutation_name = "Power Dash"
+description = "Launch yourself in any direction with explosive force.\nGain dash ability (1s cooldown)"
+type = 0
+pollution_cost = 0
+has_special_ability = true
+ability_id = "double_jump"
+ability_cooldown = 1.0
+synergy_hint = "Enhanced by speed mutations"

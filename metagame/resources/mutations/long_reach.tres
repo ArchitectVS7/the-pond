@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "long_reach"
+mutation_name = "Long Reach"
+description = "Your tongue extends further to catch distant prey.\n+30% Tongue Range"
+type = 0
+pollution_cost = 0
+range_modifier = 0.3
+synergy_hint = "Pairs with Quick Tongue"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "mercury_blood"
+mutation_name = "Mercury Blood"
+description = "Toxic mercury infusion grants immense power at a cost.\n+50% Damage\n-1 Max HP\n[WARNING] +20 Pollution"
+type = 1
+pollution_cost = 20
+damage_modifier = 0.5
+hp_modifier = -1
+synergy_hint = "High risk, high reward"

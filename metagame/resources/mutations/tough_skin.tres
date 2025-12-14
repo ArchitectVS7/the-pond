@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "tough_skin"
+mutation_name = "Tough Skin"
+description = "Your skin thickens, providing extra protection.\n+1 Max HP"
+type = 0
+pollution_cost = 0
+hp_modifier = 1
+synergy_hint = "Pairs well with defensive abilities"

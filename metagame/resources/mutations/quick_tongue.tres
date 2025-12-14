@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "quick_tongue"
+mutation_name = "Quick Tongue"
+description = "Your tongue strikes faster than ever.\n-15% Attack Cooldown"
+type = 0
+pollution_cost = 0
+attack_cooldown_modifier = -0.15
+synergy_hint = "Works great with Long Reach"

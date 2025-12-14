@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SynergyResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/SynergyResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "swamp_king"
+synergy_name = "Swamp King"
+description = "Master of the wetlands - greatly enhanced mobility on water surfaces"
+required_mutations = ["lily_pad", "slippery", "speed_boost"]
+bonus_effects = {
+    "speed": 0.5
+}

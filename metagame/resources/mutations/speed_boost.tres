@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "speed_boost"
+mutation_name = "Swift Legs"
+description = "Your powerful frog legs propel you 20% faster.\n+20% Move Speed"
+type = 0
+pollution_cost = 0
+speed_modifier = 0.2
+synergy_hint = "Combine with water mutations"

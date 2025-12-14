@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "oil_slick"
+mutation_name = "Oil Slick"
+description = "Leave a trail of toxic oil that damages enemies.\nDeals 2 damage over 3 seconds\n[WARNING] +15 Pollution"
+type = 1
+pollution_cost = 15
+has_special_ability = true
+ability_id = "oil_trail"
+synergy_hint = "Part of Pollution Immune combo"

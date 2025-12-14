@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "toxic_aura"
+mutation_name = "Toxic Aura"
+description = "Emit poisonous fumes that damage nearby enemies.\n1 damage per second in 80 unit radius\n[WARNING] +12 Pollution"
+type = 1
+pollution_cost = 12
+has_special_ability = true
+ability_id = "toxic_aura"
+synergy_hint = "Part of Pollution Immune combo"

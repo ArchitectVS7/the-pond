@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SynergyResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/SynergyResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "pollution_immune"
+synergy_name = "Pollution Immune"
+description = "Your body has adapted to toxins - immune to your own pollution effects"
+required_mutations = ["oil_slick", "toxic_aura", "tough_skin"]
+bonus_effects = {
+    "hp": 1
+}

@@ -49,13 +49,30 @@ signal boss_defeated(boss_id: String, evidence_reward: String)
 signal level_up(options: Array)
 
 ## Emitted when a mutation is selected
-## @param mutation_id: ID of selected mutation
-## @param is_pollution: Whether it's a pollution mutation
-signal mutation_selected(mutation_id: String, is_pollution: bool)
+## @param mutation_data: Dictionary with mutation details
+signal mutation_selected(mutation_data: Dictionary)
 
 ## Emitted when pollution index changes
-## @param new_value: New pollution percentage (0-100)
+## @param new_value: Total pollution value
 signal pollution_changed(new_value: int)
+
+## Emitted when a synergy is activated
+## @param synergy_data: Dictionary with synergy details
+signal synergy_activated(synergy_data: Dictionary)
+
+## Emitted when level-up UI is shown
+signal level_up_shown()
+
+## Emitted when level-up UI is hidden
+signal level_up_hidden()
+
+## Emitted when player is healed
+## @param amount: Amount healed
+signal player_healed(amount: int)
+
+## Emitted when a special ability is used
+## @param ability_data: Dictionary with ability details
+signal ability_used(ability_data: Dictionary)
 
 # =============================================================================
 # CONSPIRACY BOARD SIGNALS

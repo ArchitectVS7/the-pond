@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MutationResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://metagame/resources/MutationResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "sticky_feet"
+mutation_name = "Sticky Feet"
+description = "Your adhesive toe-pads keep you grounded.\nImmune to knockback"
+type = 0
+pollution_cost = 0
+synergy_hint = "Great for aggressive playstyles"
