@@ -20,7 +20,7 @@
 
 ### Key Principles
 
-1. **Template-Based**: 5 reusable workflow templates instead of 12 custom workflows
+1. **Template-Based**: 5 reusable workflow templates dynamically modified for various stages of development
 2. **Phase-Driven**: Each phase has clear inputs, outputs, and success criteria
 3. **Multi-Agent**: Different synthetic personalities collaborate at each stage
 4. **Artifact-Centric**: Every phase produces documented artifacts
@@ -102,7 +102,7 @@ Every phase uses one of these 5 templates:
 **Agents**:
 - **Dreamer**: Expansive thinker, explores possibilities
 - **Doer**: Practical thinker, grounds ideas in reality
-- **Facilitator**: Manages conversation flow
+- **Facilitator**: Manages conversation flow 
 - **Synthesizer**: Creates final vision document
 
 **Input**: Initial idea (text or markdown file)
@@ -142,7 +142,7 @@ output_format: vision
 **Agents**:
 - **Facilitator**: Guides discussion
 - **5 User Personas**: Domain-specific perspectives (generated dynamically)
-- **Researcher**: Parallel web research (optional)
+- **Researcher**: Parallel web research (validates persona feedback with actual demographics where possible)
 - **Synthesizer**: Creates feedback report
 
 **Input**: Vision document from Phase 1
