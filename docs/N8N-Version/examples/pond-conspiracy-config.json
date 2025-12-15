@@ -1,0 +1,143 @@
+{
+  "project_name": "pond-conspiracy",
+  "description": "A game where you're a frog in a pond managing your ecosystem",
+  "execution_mode": "idea_to_architecture",
+  "phases": {
+    "phase_1_ideation": {
+      "idea_text": "A game where you're a frog in a pond, and you have to manage your ecosystem while dealing with environmental changes, predators, and other frogs. The twist: every decision affects the pond's health, and the pond affects your abilities.",
+      "max_rounds": 8,
+      "min_rounds": 4,
+      "exit_condition": "aha_moment"
+    },
+    "phase_2_focus_group": {
+      "participants_count": 5,
+      "participant_types": [
+        "casual-gamer",
+        "ecology-enthusiast",
+        "strategy-fan",
+        "story-driven-player",
+        "indie-game-developer"
+      ],
+      "round_count": 5,
+      "parallel_research": true
+    },
+    "phase_3_engineering_meeting": {
+      "evaluation_type": "create",
+      "output_type": "prd",
+      "board_members": [
+        "engineering-manager",
+        "technical-lead",
+        "product-manager",
+        "qa-lead",
+        "ux-lead"
+      ],
+      "parallel_research": true
+    },
+    "phase_4_stakeholder_review": {
+      "participants": [
+        "dreamer",
+        "doer",
+        "casual-gamer",
+        "ecology-enthusiast",
+        "strategy-fan",
+        "story-driven-player",
+        "indie-game-developer"
+      ],
+      "round_structure": "section_by_section",
+      "output_type": "validation_report"
+    },
+    "phase_5_triage": {
+      "evaluation_type": "triage",
+      "categories": [
+        "mvp_critical",
+        "alpha_release",
+        "beta_release",
+        "post_launch",
+        "out_of_scope"
+      ]
+    },
+    "phase_6_architecture": {
+      "evaluation_type": "design",
+      "spawn_substages": true,
+      "substage_domains": {
+        "required": [
+          "platform_deployment",
+          "system_structure",
+          "communication_patterns",
+          "data_architecture",
+          "authentication_security",
+          "tech_stack",
+          "frontend_architecture"
+        ]
+      },
+      "output_type": "architecture"
+    }
+  },
+  "outputs": {
+    "base_path": ".thursian/projects/pond-conspiracy",
+    "artifacts": {
+      "phase_1": [
+        "visions/vision-v1.md",
+        "conversations/ideation-full.md"
+      ],
+      "phase_2": [
+        "focus-groups/report.md",
+        "conversations/focus-group-full.md"
+      ],
+      "phase_3": [
+        "prds/prd-v1.md",
+        "prds/technical-research.md"
+      ],
+      "phase_4": [
+        "prds/stakeholder-feedback.md",
+        "prds/prd-approved.md"
+      ],
+      "phase_5": [
+        "prds/triage-report.md",
+        "design-docs/PRD-v0.2.md"
+      ],
+      "phase_6": [
+        "design-docs/architecture-overview.md",
+        "design-docs/adrs/*.md"
+      ]
+    }
+  },
+  "execution_results": {
+    "phase_1": {
+      "status": "completed",
+      "timestamp": "2025-12-13T01:33:00Z",
+      "rounds_completed": 6,
+      "exit_reason": "aha_moment"
+    },
+    "phase_2": {
+      "status": "completed",
+      "timestamp": "2025-12-13T01:51:00Z",
+      "participants": 5,
+      "consensus_level": "high"
+    },
+    "phase_3": {
+      "status": "completed",
+      "timestamp": "2025-12-13T14:17:00Z",
+      "prd_word_count": 41927
+    },
+    "phase_4": {
+      "status": "completed",
+      "timestamp": "2025-12-13T15:07:00Z",
+      "approval_status": "approved_with_suggestions"
+    },
+    "phase_5": {
+      "status": "completed",
+      "timestamp": "2025-12-13T15:09:00Z",
+      "items_triaged": 120,
+      "mvp_epics": 11,
+      "alpha_epics": 5,
+      "beta_epics": 4
+    },
+    "phase_6": {
+      "status": "completed",
+      "timestamp": "2025-12-13T15:56:00Z",
+      "adrs_created": 7,
+      "architecture_word_count": 18118
+    }
+  }
+}

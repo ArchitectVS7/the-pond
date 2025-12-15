@@ -1,4 +1,6 @@
 # Thursian Engineering Manual  
+**Revision** [Dec-13-2025] 
+
 *A Field Guide for Human Engineers Working Among Synthetic Minds*  
 
 Welcome to the Thursian Automation Division.  
