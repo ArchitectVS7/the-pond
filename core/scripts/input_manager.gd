@@ -203,7 +203,11 @@ func _save_bindings() -> void:
 		push_error("InputManager: Failed to save bindings")
 		return
 
-	file.store_string(JSON.stringify(data, "\t"))
+	# Godot 4.4+: store_string returns bool indicating success
+	if not file.store_string(JSON.stringify(data, "\t")):
+		push_error("InputManager: Failed to write input bindings")
+		file.close()
+		return
 	file.close()
 
 ## Rebind action

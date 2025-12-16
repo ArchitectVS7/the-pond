@@ -84,7 +84,13 @@ func save_game(save_data: SaveData = null) -> bool:
 		save_failed.emit(error)
 		return false
 
-	temp_file.store_string(json_string)
+	# Godot 4.4+: store_string returns bool indicating success
+	if not temp_file.store_string(json_string):
+		var error := "Failed to write save data to temp file"
+		push_error("SaveManager: " + error)
+		temp_file.close()
+		save_failed.emit(error)
+		return false
 	temp_file.close()
 
 	# STEP 2: Verify temp file was written correctly

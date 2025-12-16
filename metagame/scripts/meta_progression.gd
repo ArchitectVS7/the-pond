@@ -101,7 +101,11 @@ func save_meta_state() -> bool:
 		push_error("[MetaProgression] Failed to create save file: " + str(FileAccess.get_open_error()))
 		return false
 
-	file.store_string(JSON.stringify(meta_state, "\t"))
+	# Godot 4.4+: store_string returns bool indicating success
+	if not file.store_string(JSON.stringify(meta_state, "\t")):
+		push_error("[MetaProgression] Failed to write meta state")
+		file.close()
+		return false
 	file.close()
 
 	meta_state_saved.emit()

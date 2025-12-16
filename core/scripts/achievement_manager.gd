@@ -124,7 +124,11 @@ func _save_achievements() -> void:
 		push_error("AchievementManager: Failed to save achievements")
 		return
 
-	file.store_string(JSON.stringify(data, "\t"))
+	# Godot 4.4+: store_string returns bool indicating success
+	if not file.store_string(JSON.stringify(data, "\t")):
+		push_error("AchievementManager: Failed to write achievement data")
+		file.close()
+		return
 	file.close()
 
 ## Update achievement progress
