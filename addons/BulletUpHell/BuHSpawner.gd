@@ -136,9 +136,12 @@ func reset(minimal:bool=false):
 				array.erase(elem)
 
 func _exit_tree():
-	spawn_thread.wait_to_finish()
-	draw_thread.wait_to_finish()
-	move_thread.wait_to_finish()
+	if spawn_thread:
+		spawn_thread.wait_to_finish()
+	if draw_thread:
+		draw_thread.wait_to_finish()
+	if move_thread:
+		move_thread.wait_to_finish()
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
