@@ -136,9 +136,12 @@ func reset(minimal:bool=false):
 				array.erase(elem)
 
 func _exit_tree():
-	spawn_thread.wait_to_finish()
-	draw_thread.wait_to_finish()
-	move_thread.wait_to_finish()
+	if spawn_thread:
+		spawn_thread.wait_to_finish()
+	if draw_thread:
+		draw_thread.wait_to_finish()
+	if move_thread:
+		move_thread.wait_to_finish()
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
@@ -307,7 +310,8 @@ func create_shape(shared_rid:RID, ColID:String, init:bool=false, count:int=0) ->
 		Phys.shape_set_data(new_shape, [template_shape.length,template_shape.slide_on_slope])
 	elif template_shape is RectangleShape2D:
 		new_shape = Phys.rectangle_shape_create()
-		Phys.shape_set_data(new_shape, template_shape.extents)
+		# Godot 4.0+: RectangleShape2D uses 'size' instead of 'extents'
+		Phys.shape_set_data(new_shape, template_shape.size / 2.0)
 	elif template_shape is SegmentShape2D:
 		new_shape = Phys.segment_shape_create()
 		Phys.shape_set_data(new_shape, [template_shape.a,template_shape.b])

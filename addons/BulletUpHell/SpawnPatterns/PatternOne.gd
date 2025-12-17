@@ -134,13 +134,13 @@ func _get_property_list() -> Array:
 			name = "wait_latence",
 			type = TYPE_INT,
 			hint = PROPERTY_HINT_ENUM,
-			hint_string = LATENCE,
+			hint_string = "stay,move,spin,follow,target",
 			usage = PROPERTY_USAGE_DEFAULT
 		},{
 			name = "wait_tween_momentum",
 			type = TYPE_INT,
 			hint = PROPERTY_HINT_ENUM,
-			hint_string = MOMENTUM,
+			hint_string = "None,TRANS_LINEAR,TRANS_SINE,TRANS_QUINT,TRANS_QUART,TRANS_QUAD,TRANS_EXPO,TRANS_ELASTIC,TRANS_CUBIC,TRANS_CIRC,TRANS_BOUNCE,TRANS_BACK",
 			usage = PROPERTY_USAGE_DEFAULT
 		},{
 			name = "wait_tween_length",

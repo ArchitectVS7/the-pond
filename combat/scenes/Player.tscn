@@ -1,19 +1,16 @@
 [gd_scene load_steps=6 format=3 uid="uid://c4player001"]
 
-[ext_resource type="Script" path="res://combat/scripts/player_controller.gd" id="1_player"]
-[ext_resource type="Script" path="res://combat/scripts/tongue_attack.gd" id="2_tongue"]
+[ext_resource type="Script" uid="uid://dng5axuea24p7" path="res://combat/scripts/player_controller.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://cj7q3kcdklw26" path="res://combat/scripts/tongue_attack.gd" id="2_tongue"]
+[ext_resource type="Texture2D" uid="uid://cpgk58ef2m7rs" path="res://assets/icon.svg" id="3_icon"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(28, 28)
-
-[sub_resource type="Gradient" id="Gradient_aim"]
-colors = PackedColorArray(1, 0.3, 0.3, 0.9, 1, 0.3, 0.3, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tongue"]
 radius = 12.0
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 1
 collision_mask = 2
 script = ExtResource("1_player")
 
@@ -22,7 +19,8 @@ shape = SubResource("RectangleShape2D_1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.290196, 0.486275, 0.34902, 1)
-scale = Vector2(2, 2)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_icon")
 
 [node name="AimPivot" type="Node2D" parent="."]
 

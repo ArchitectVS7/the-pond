@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://testarena001"]
 
 [ext_resource type="PackedScene" uid="uid://c4player001" path="res://combat/scenes/Player.tscn" id="1_player"]
-[ext_resource type="Script" path="res://combat/scenes/test_arena_controller.gd" id="2_controller"]
+[ext_resource type="Script" uid="uid://cuvvoo2tqji46" path="res://combat/scenes/test_arena_controller.gd" id="2_controller"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(1920, 40)
