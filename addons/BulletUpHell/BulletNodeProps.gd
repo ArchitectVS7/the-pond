@@ -238,7 +238,7 @@ func _get_property_list() -> Array:
 			name = "a_curve_movement",
 			type = TYPE_INT,
 			hint = PROPERTY_HINT_ENUM,
-			hint_string = CURVE_TYPE,
+			hint_string = "None,LoopFromStart,OnceThenDie,OnceThenStay,LoopFromEnd",
 			usage = PROPERTY_USAGE_DEFAULT
 		},{
 			name = "a_speed_multiplier",
@@ -278,7 +278,7 @@ func _get_property_list() -> Array:
 			name = "homing_type",
 			type = TYPE_INT,
 			hint = PROPERTY_HINT_ENUM,
-			hint_string = TARGET_TYPE,
+			hint_string = "Nodepath,Position,SpecialNode,Group,Surface,ListPositions,ListNodes,MouseCursor",
 			usage = PROPERTY_USAGE_DEFAULT
 		}]
 	var PL_homing = [{
@@ -318,7 +318,7 @@ func _get_property_list() -> Array:
 			name = "homing_select_in_group",
 			type = TYPE_INT,
 			hint = PROPERTY_HINT_ENUM,
-			hint_string = GROUP_SELECT,
+			hint_string = "Nearest_on_homing,Nearest_on_spawn,Nearest_on_shoot,Nearest_anywhen,Random",
 			usage = PROPERTY_USAGE_DEFAULT
 		}]
 	var PL_homing_list = [{
@@ -329,7 +329,7 @@ func _get_property_list() -> Array:
 			name = "homing_when_list_ends",
 			type = TYPE_INT,
 			hint = PROPERTY_HINT_ENUM,
-			hint_string = LIST_BEHAVIOUR,
+			hint_string = "Stop,Loop,Reverse",
 			usage = PROPERTY_USAGE_DEFAULT
 		}]
 
