@@ -133,7 +133,7 @@ func test_custom_tooltip_messages() -> void:
 
 func test_mutation_stub_increases_pollution() -> void:
 	meter.set_pollution_mutations(3)
-	assert_gt(meter.pollution_value, 0, "Mutations should increase pollution")
+	assert_gt(meter.pollution_value, 0.0, "Mutations should increase pollution")
 	assert_eq(meter.pollution_value, 45.0, "3 mutations × 15.0 = 45.0 pollution")
 
 func test_pollution_per_mutation_configurable() -> void:
@@ -207,29 +207,34 @@ func test_manual_pollution_setter() -> void:
 # ============================================================================
 
 func test_event_bus_pollution_signal() -> void:
-	# Test that pollution_updated signal works
+	# Test that pollution_changed signal works
 	var signal_emitted = false
-	var emitted_value = 0.0
+	var emitted_value = 0
 
-	if has_node("/root/EventBus"):
-		var event_bus = get_node("/root/EventBus")
-		event_bus.pollution_updated.connect(func(value):
-			signal_emitted = true
-			emitted_value = value
-		)
+	# Verify EventBus and Signal
+	assert_not_null(EventBus, "EventBus autoload should be available")
+	assert_true(EventBus.has_signal("pollution_changed"), "EventBus mismatches signal name")
 
-		meter.pollution_value = 42.0
-		await get_tree().process_frame
+	EventBus.pollution_changed.connect(func(value):
+		signal_emitted = true
+		emitted_value = value
+	)
+	
+	# Verify meter readiness
+	assert_true(meter.is_node_ready(), "Meter should be ready")
 
-		assert_true(signal_emitted, "EventBus should emit pollution_updated")
-		assert_eq(emitted_value, 42.0, "Signal should contain correct value")
+	meter.pollution_value = 42.0
+	await get_tree().process_frame
+
+	assert_true(signal_emitted, "EventBus should emit pollution_changed")
+	assert_eq(emitted_value, 42, "Signal should contain correct value")
 
 func test_mutation_selected_stub() -> void:
 	# Test that _on_mutation_selected handles mutations correctly
 	var mutation = {"type": "pollution", "subtype": "oil"}
 	meter._on_mutation_selected(mutation)
 
-	assert_gt(meter.pollution_value, 0, "Mutation selection should increase pollution")
+	assert_gt(meter.pollution_value, 0.0, "Mutation selection should increase pollution")
 
 # ============================================================================
 # Edge cases and validation
