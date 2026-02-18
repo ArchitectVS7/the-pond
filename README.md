@@ -1,109 +1,140 @@
-# Pond Conspiracy
+```markdown
+# The Pond
 
-A bullet-hell roguelite where you play as a frog uncovering a corporate environmental conspiracy. Combat is how you gather evidence. The conspiracy board is why you keep playing.
+A top-down bullet-hell shooter where you play as a frog battling hostile frogs in a pond ecosystem. Collect chemical upgrades powered by weaponized microplastics while surviving increasingly difficult enemy waves. Built with Godot 4.5.1, combining horde survival mechanics with environmental themes.
 
----
+## Overview
 
-## What It Is
+The Pond is an action game featuring:
+- **Combat System** - Bullet-hell mechanics with dynamic weapon upgrades
+- **Horde Survival** - Progressively challenging enemy waves with difficulty scaling
+- **Ecosystem Theme** - Environmental narrative integrated through gameplay and upgrades
+- **Frog Protagonist** - Top-down movement and aiming mechanics in a pond environment
 
-You live in a dying pond. Corporate runoff has mutated the ecosystem. You fight through waves of polluted creatures, absorbing their toxins as mutation upgrades. Every boss you defeat drops evidence — a data log, an internal memo, a leaked document. Between runs, you pin that evidence to a cork board, connect the threads, and piece together who poisoned your home.
+## Installation
 
-The conspiracy board is not a menu. It is the core loop.
+### Prerequisites
 
-**Platform:** Steam — Windows, Linux, Steam Deck
-**Genre:** Bullet-hell roguelite / investigation
-**Engine:** Godot 4.2+
+- Godot Engine 4.5.1 or later
+- Git
 
----
+### Setup Steps
 
-## Status
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ArchitectVS7/the-pond.git
+   cd the-pond
+   ```
 
-| Phase | Stories | Status |
-|---|---|---|
-| MVP | 78 / 78 | Complete |
-| Alpha | 0 / 27 | Not started |
-| Beta | 0 / 22 | Not started |
+2. Open the project in Godot 4.5.1:
+   - Launch Godot Engine
+   - Click "Open Project"
+   - Navigate to the cloned `the-pond` directory
+   - Select `project.godot`
 
-MVP systems are implemented, tested, and performance-validated (60 FPS on GTX 1060 with 500+ entities). What remains before Alpha: art assets, audio, a main menu, and the full run loop connecting combat → board → next run.
+3. The project automatically loads with all dependencies configured. The GUT testing framework is included in `addons/gut/`.
 
----
+## Usage
 
-## Running the Project
+### Running the Game
 
-**Requirements:** Godot 4.2 or later
+Press **F5** or click the **Play** button in the top-right corner of the Godot editor to start the game.
+
+To run a specific scene during development:
+```bash
+# Press F8 in the Godot editor and select your scene
+```
+
+### Game Controls
+
+| Action | Input |
+|--------|-------|
+| Move | **WASD** |
+| Aim | **Mouse** |
+| Fire Weapon | **Left Click** |
+| Interact with Upgrades | **Space** |
+
+### Running Tests
+
+Execute the test suite using the GUT framework:
 
 ```bash
-# Open the project
-godot project.godot
-
-# Launch the test arena directly (current main scene)
-# Press F5 in the Godot editor, or:
-godot --path . res://combat/scenes/TestArena.tscn
+godot --headless -s res://addons/gut/gut_cmdline.gd -gdir=res://tests
 ```
 
-**Controls:**
-- `WASD` — Move
-- `Mouse` — Aim
-- `Left click` — Tongue attack
-- `Escape` — Pause
+Test configuration is defined in `.gutconfig.json`. Tests validate combat systems, bullet behaviors, and core game state management.
 
----
+### Building for Distribution
 
-## Running Tests
+Export presets are configured in `export_presets.cfg`. To build:
 
-Tests use the [GUT](https://github.com/bitwes/Gut) framework included in `addons/gut/`.
+1. In Godot editor, go to **Project → Export**
+2. Select your target platform preset
+3. Click **Export Project** and choose an output directory
 
-```bash
-# All unit tests
-godot --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/unit/
+Supported platforms are configured in the export presets file.
 
-# All integration tests
-godot --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/integration/
-
-# Conspiracy board tests
-godot --path . -s addons/gut/gut_cmdln.gd -gtest=res://tests/conspiracy_board/
-```
-
----
-
-## Architecture
-
-The codebase uses an event-driven architecture. All inter-module communication goes through `EventBus` (autoloaded singleton). Modules never import each other directly.
+## Project Structure
 
 ```
-core/               Event bus, save system, Steam integration
-combat/             Player, enemies, bosses, bullet patterns
-conspiracy_board/   Cork board UI, evidence cards, string connections
-metagame/           Mutations, abilities, meta-progression
-shared/             Audio, particles, accessibility, screen shake
+the-pond/
+├── combat/                 # Weapon systems, bullet behaviors, and enemy AI
+├── core/                   # Game state management, EventBus autoload, core systems
+├── shared/                 # Reusable managers, utilities, and common components
+├── assets/                 # Game graphics, sprites, and audio resources
+├── addons/                 # Godot plugins (GUT testing framework)
+├── tests/                  # GUT-based unit tests for game systems
+├── dev-docs/               # Developer documentation and architecture guides
+├── .claude/                # AI assistant configuration, agents, and workflows
+├── CLAUDE.md               # Repository conventions and development guidance
+├── project.godot           # Godot project configuration
+├── export_presets.cfg      # Export settings for building distribution packages
+└── .gutconfig.json         # GUT test framework configuration
 ```
 
-Key technical decisions are documented in `.thursian/projects/pond-conspiracy/design-docs/adrs/`.
+### Key Directories Explained
 
----
+- **`combat/`** - Contains weapon systems, bullet mechanics, bullet behaviors, and enemy AI logic
+- **`core/`** - Houses game state management, the EventBus autoload for signal handling, and initialization systems
+- **`shared/`** - Provides reusable managers (event management, game state) and utility functions used across systems
+- **`assets/`** - Organized game resources including graphics, sprites, and audio files
+- **`tests/`** - GUT framework tests covering combat systems, bullet behaviors, and core game logic
+- **`dev-docs/`** - Architecture decisions, system documentation, and development guides
+- **`.claude/`** - Multi-agent workflow configuration for collaborative development assistance
 
-## Documentation
+## Development
 
-- **Developer's Manual:** [`GUIDE/index.md`](GUIDE/index.md) — 14 chapters covering every system, tunable parameters, API reference, and the road to launch
-- **Architecture Decisions:** `.thursian/projects/pond-conspiracy/design-docs/adrs/`
-- **Implementation Reports:** `dev-docs/` — 39 per-epic technical reports
+### Architecture Overview
 
----
+The Pond uses an event-driven architecture centered on the **EventBus** autoload:
+- **Signal-based communication** - Systems communicate through EventBus signals for loose coupling
+- **Combat system** - Modular weapon and bullet design supporting dynamic upgrades
+- **State management** - Core game state accessible from all systems via autoloads
 
-## Tech Stack
+### Recent Changes
 
-| Component | Choice | Notes |
-|---|---|---|
-| Engine | Godot 4.2+ (Forward+ renderer) | GDScript only |
-| Bullet system | BulletUpHell (forked) | Customized for frog-themed patterns |
-| Testing | GUT framework | 48 test files, ~8,500 lines |
-| Save format | JSON + CRC32 checksums | Steam Cloud ready |
-| Platform | GodotSteam | Achievements, Cloud, Steam Deck |
+- **Godot 4.5.1 migration** - Updated file access APIs and removed deprecated FileAccess patterns
+- **EventBus signal handling** - Enhanced cross-system communication with proper signal naming
+- **Thread safety** - Added null checks for BulletUpHell thread cleanup on scene transitions
+- **File operation handling** - Improved error handling for Godot 4.4+ FileAccess.store_string operations
 
----
+### Code Organization Conventions
+
+Refer to `CLAUDE.md` for detailed repository conventions, development workflows, and AI assistant guidance. This file documents:
+- Code style and naming standards
+- System architecture patterns
+- Signal and event conventions
+- Testing requirements for new features
 
 ## Contributing
 
-Read [`CLAUDE.md`](CLAUDE.md) for development conventions, module boundaries, and testing requirements. Read [`GUIDE/index.md`](GUIDE/index.md) before touching any system you haven't worked in before.
+When contributing, follow the conventions outlined in `CLAUDE.md`. Ensure:
+- New combat features include unit tests in the `tests/` directory
+- Signal usage follows EventBus conventions for consistency
+- File operations include proper error handling for Godot 4.4+
+- Changes are tested with: `godot --headless -s res://addons/gut/gut_cmdline.gd -gdir=res://tests`
 
-The environmental research grounding the conspiracy narrative is sourced in [`GUIDE/appendices/e-bibliography.md`](GUIDE/appendices/e-bibliography.md).
+## License
+
+See repository for license information.
+```
