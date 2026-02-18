@@ -86,10 +86,9 @@ func _ready() -> void:
 
 	# Connect to EventBus when mutation system is ready (EPIC-006)
 	# This is a stub - will be activated when EventBus.mutation_selected signal exists
-	if has_node("/root/EventBus"):
-		var event_bus = get_node("/root/EventBus")
-		if event_bus.has_signal("mutation_selected"):
-			event_bus.mutation_selected.connect(_on_mutation_selected)
+	# Connect to EventBus when mutation system is ready (EPIC-006)
+	if EventBus.has_signal("mutation_selected"):
+		EventBus.mutation_selected.connect(_on_mutation_selected)
 
 # ============================================================================
 # STORY POLLUTION-001: Core meter update logic
@@ -104,10 +103,10 @@ func _update_meter() -> void:
 	_update_color()
 
 	# Emit signal for other systems
-	if has_node("/root/EventBus"):
-		var event_bus = get_node("/root/EventBus")
-		if event_bus.has_signal("pollution_updated"):
-			event_bus.pollution_updated.emit(pollution_value)
+	# Emit signal for other systems
+	# EventBus is an autoload, so we access it directly
+	if EventBus.has_signal("pollution_changed"):
+		EventBus.pollution_changed.emit(int(pollution_value))
 
 # ============================================================================
 # STORY POLLUTION-002: Color coding implementation
